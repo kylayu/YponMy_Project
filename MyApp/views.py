@@ -1,166 +1,339 @@
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import SignUpForm
 from datetime import date
 from decimal import Decimal, InvalidOperation
+from django.db.models import Sum
 
 from django.contrib import messages
-from django.db.models import Sum
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 
 from .models import Transaction, Budget, SavingsGoal
 
+def signup_view(request):
+    if request.user.is_authenticated:
+        return redirect("index")
 
-PAYMENT_METHODS = [
-    "Cash", "GCash", "Maya", "Bank Transfer", "Card", "Other"
-]
+    form = SignUpForm(request.POST or None)
 
-FUND_TYPES = ["Cash", "Digital"]
-
-ALLOCATIONS = [
-    "Needs", "Savings", "Debt repayment", "Wants", "Investment", "Other"
-]
-
-PRIORITIES = ["High", "Medium", "Low"]
-
-BUDGET_CATEGORIES = [
-    "Food & Groceries",
-    "Transportation",
-    "Bills & Utilities",
-    "Education",
-    "Health",
-    "Shopping",
-    "Entertainment",
-    "Housing",
-    "Savings",
-    "Others",
-]
-
-SAVINGS_GOAL_CATEGORIES = [
-    "Emergency Fund",
-    "Education",
-    "Travel",
-    "Gadgets",
-    "House",
-    "Vehicle",
-    "Business",
-    "Others",
-]
-
-def parse_amount(value, field_name="Amount", allow_zero=False):
-    try:
-        amount = Decimal(value)
-    except (InvalidOperation, TypeError, ValueError):
-        raise ValueError(f"Enter a valid {field_name.lower()}.")
-
-    if not amount.is_finite():
-        raise ValueError(f"Enter a valid {field_name.lower()}.")
-
-    if amount < 0 or (amount == 0 and not allow_zero):
-        raise ValueError(
-            f"{field_name} must be "
-            f"{'zero or greater' if allow_zero else 'greater than zero'}."
+    if request.method == "POST" and form.is_valid():
+        user = form.save()
+        login(request, user)
+        messages.success(
+            request,
+            "Your account has been created successfully."
         )
+        return redirect("index")
 
-    return amount
-
-
-def parse_date(value, field_name):
-    try:
-        return date.fromisoformat(value)
-    except (ValueError, TypeError):
-        raise ValueError(f"Select a valid {field_name.lower()}.")
+    return render(
+        request,
+        "InvApp/signup.html",
+        {"form": form}
+    )
 
 
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("index")
+
+    form = AuthenticationForm(
+        request=request,
+        data=request.POST or None
+    )
+
+    if request.method == "POST" and form.is_valid():
+        login(request, form.get_user())
+        messages.success(request, "Login successful.")
+        return redirect("index")
+
+    return render(
+        request,
+        "InvApp/login.html",
+        {"form": form}
+    )
+
+@login_required
 def index(request):
     if request.method == "POST":
         action = request.POST.get("action", "").strip()
 
-        try:
-            # TRANSACTIONS
-            if action in ["add", "edit"]:
-                transaction_id = request.POST.get("transaction_id")
 
-                if action == "edit":
-                    transaction = get_object_or_404(
-                        Transaction, pk=transaction_id
-                    )
-                else:
-                    transaction = Transaction()
+        # -------------------------
+        # ADD BUDGET OR EDIT BUDGET
+        # -------------------------
+        if action in ("add_budget", "edit_budget"):
+            category = request.POST.get("budget_category", "").strip()
+            custom_category = request.POST.get(
+                "budget_category_other", ""
+            ).strip()
+            payment_method = request.POST.get(
+                "payment_method", ""
+            ).strip()
 
-                transaction_type = request.POST.get("transaction_type", "")
-                description = request.POST.get("description", "").strip()
-                category = request.POST.get("category", "").strip()
-                payment_method = request.POST.get("payment_method", "")
-                fund_type = request.POST.get("fund_type", "")
-                allocation = request.POST.get("allocation", "Needs")
-                money_plan = request.POST.get("money_plan", "").strip()
-                priority = request.POST.get("priority", "Medium")
+            if category.lower() == "others":
+                category = custom_category
 
-                amount = parse_amount(request.POST.get("amount", ""))
-                transaction_date = parse_date(
-                    request.POST.get("date"), "transaction date"
+            try:
+                amount = Decimal(request.POST.get("budget_amount", "0"))
+                spending_limit = Decimal(
+                    request.POST.get("spending_limit", "0")
+                )
+                start_date = date.fromisoformat(
+                    request.POST.get("start_date", "")
+                )
+                end_date = date.fromisoformat(
+                    request.POST.get("end_date", "")
                 )
 
-                if transaction_type not in ["Income", "Expense"]:
-                    raise ValueError("Choose Income or Expense.")
+                if not category:
+                    raise ValueError("Please enter a budget category.")
 
-                if not description or not category:
-                    raise ValueError("Description and category are required.")
+                if amount <= 0 or spending_limit <= 0:
+                    raise ValueError("Amounts must be greater than zero.")
 
-                if len(description) > 100 or len(category) > 100:
-                    raise ValueError("Description or category is too long.")
-
-                if payment_method not in PAYMENT_METHODS:
-                    raise ValueError("Choose a valid payment method.")
-
-                if fund_type not in FUND_TYPES:
-                    raise ValueError("Choose Cash or Digital.")
-
-                if allocation not in ALLOCATIONS:
-                    raise ValueError("Choose a valid money allocation.")
-
-                if priority not in PRIORITIES:
-                    raise ValueError("Choose a valid priority.")
-
-                transaction.transaction_type = transaction_type
-                transaction.amount = amount
-                transaction.description = description
-                transaction.date = transaction_date
-                transaction.payment_method = payment_method
-                transaction.fund_type = fund_type
-                transaction.category = category
-                transaction.allocation = allocation
-                transaction.money_plan = money_plan
-                transaction.priority = priority
-                transaction.save()
-
-                messages.success(request, "Transaction saved successfully.")
-
-            elif action == "add_budget_expense":
-                budget = get_object_or_404(
-                    Budget,
-                    pk=request.POST.get("budget_id")
-                )
-
-                expense_amount = parse_amount(
-                    request.POST.get("expense_amount", ""),
-                    field_name="Expense amount",
-                )
-
-                expense_date = timezone.localdate()
-
-                if not (
-                    budget.start_date <= expense_date <= budget.end_date
-                ):
+                if spending_limit > amount:
                     raise ValueError(
-                        "Today's date must be within this budget's date range."
+                        "The spending limit cannot exceed the total budget."
                     )
 
+                if end_date < start_date:
+                    raise ValueError(
+                        "The end date cannot be before the start date."
+                    )
+
+                if action == "add_budget":
+                    Budget.objects.create(
+                        user=request.user,
+                        category=category,
+                        amount=amount,
+                        spending_limit=spending_limit,
+                        start_date=start_date,
+                        end_date=end_date,
+                        payment_method=payment_method,
+                    )
+                    messages.success(request, "Budget added successfully.")
+
+                else:
+                    budget = Budget.objects.get(
+                        budget_id=request.POST.get("budget_id"),
+                        user=request.user,
+                    )
+                    budget.category = category
+                    budget.amount = amount
+                    budget.spending_limit = spending_limit
+                    budget.start_date = start_date
+                    budget.end_date = end_date
+                    budget.payment_method = payment_method
+                    budget.save()
+
+                    messages.success(request, "Budget updated successfully.")
+
+            except (InvalidOperation, ValueError, TypeError):
+                messages.error(
+                    request,
+                    "Please check your budget details and enter valid amounts and dates.",
+                )
+            except Budget.DoesNotExist:
+                messages.error(request, "Budget not found.")
+
+            return redirect("/#budgets")
+
+        # -------------------------
+        # DELETE BUDGET
+        # -------------------------
+        elif action == "delete_budget":
+            budget = Budget.objects.filter(
+                budget_id=request.POST.get("budget_id"),
+                user=request.user,
+            ).first()
+
+            if budget:
+                budget.delete()
+                messages.success(request, "Budget deleted successfully.")
+            else:
+                messages.error(request, "Budget not found.")
+
+            return redirect("/#budgets")
+
+        # -------------------------
+        # ADD OR EDIT SAVINGS GOAL
+        # -------------------------
+        elif action in ("add_goal", "edit_goal"):
+            goal_name = request.POST.get("goal_category", "").strip()
+            custom_name = request.POST.get(
+                "goal_name_other", ""
+            ).strip()
+
+            if goal_name.lower() == "others":
+                goal_name = custom_name
+
+            try:
+                target_amount = Decimal(
+                    request.POST.get("target_amount", "0")
+                )
+                current_amount = Decimal(
+                    request.POST.get("current_amount", "0")
+                )
+                target_date = date.fromisoformat(
+                    request.POST.get("target_date", "")
+                )
+
+                if not goal_name:
+                    raise ValueError("Please enter a savings goal.")
+
+                if target_amount <= 0 or current_amount < 0:
+                    raise ValueError("Please enter valid savings amounts.")
+
+                if current_amount > target_amount:
+                    raise ValueError(
+                        "Current savings cannot exceed the target amount."
+                    )
+
+                if action == "add_goal":
+                    SavingsGoal.objects.create(
+                        user=request.user,
+                        goal_name=goal_name,
+                        target_amount=target_amount,
+                        current_amount=current_amount,
+                        target_date=target_date,
+                    )
+                    messages.success(
+                        request, "Savings goal added successfully."
+                    )
+
+                else:
+                    goal = SavingsGoal.objects.get(
+                        goal_id=request.POST.get("goal_id"),
+                        user=request.user,
+                    )
+                    goal.goal_name = goal_name
+                    goal.target_amount = target_amount
+                    goal.current_amount = current_amount
+                    goal.target_date = target_date
+                    goal.save()
+
+                    messages.success(
+                        request, "Savings goal updated successfully."
+                    )
+
+            except (InvalidOperation, ValueError, TypeError):
+                messages.error(
+                    request,
+                    "Please check your savings goal details and enter valid amounts and a date.",
+                )
+            except SavingsGoal.DoesNotExist:
+                messages.error(request, "Savings goal not found.")
+
+            return redirect("/#goals")
+
+        # -------------------------
+        # ADD MONEY TO A GOAL
+        # -------------------------
+        elif action == "contribute_goal":
+            goal = SavingsGoal.objects.filter(
+                goal_id=request.POST.get("goal_id"),
+                user=request.user,
+            ).first()
+
+            if not goal:
+                messages.error(request, "Savings goal not found.")
+                return redirect("/#goals")
+
+            try:
+                contribution = Decimal(
+                    request.POST.get("contribution_amount", "0")
+                )
+
+                if contribution <= 0:
+                    raise ValueError
+
+                goal.current_amount += contribution
+                goal.save(update_fields=["current_amount"])
+
+                messages.success(
+    request,
+    f"₱{contribution:,.2f} added to your "
+    f"{goal.goal_name} savings goal.",
+)
+
+            except (InvalidOperation, ValueError, TypeError):
+                messages.error(
+                    request,
+                    "Enter a valid contribution greater than zero.",
+                )
+
+            return redirect("/#goals")
+
+
+        # -------------------------
+        # ADD EXPENSE DIRECTLY TO A BUDGET
+        # -------------------------
+        elif action == "add_budget_expense":
+            try:
+                budget = Budget.objects.filter(
+                    budget_id=request.POST.get("budget_id"),
+                    user=request.user,
+                ).first()
+
+                if not budget:
+                    messages.error(request, "Budget not found.")
+                    return redirect("/#budgets")
+
+                amount = Decimal(request.POST.get("amount", "0"))
+
+                if not amount.is_finite() or amount <= 0:
+                    raise ValueError("Enter a valid expense amount.")
+
+                # Budget expenses must be recorded within the budget period.
+                expense_date = date.today()
+
+                if not (budget.start_date <= expense_date <= budget.end_date):
+                    messages.error(
+                        request,
+                        "Today's date is outside this budget's date range.",
+                    )
+                    return redirect("/#budgets")
+
+                # Calculate how much has already been spent in this budget.
+                spending_limit = budget.spending_limit or budget.amount
+
+                spent = (
+                    Transaction.objects.filter(
+                        user=request.user,
+                        transaction_type__iexact="expense",
+                        category__iexact=budget.category,
+                        date__gte=budget.start_date,
+                        date__lte=budget.end_date,
+                    ).aggregate(total=Sum("amount"))["total"]
+                    or Decimal("0.00")
+                )
+
+                remaining = spending_limit - spent
+
+                if remaining <= 0:
+                    messages.error(
+                        request,
+                        "This budget has no remaining balance.",
+                    )
+                    return redirect("/#budgets")
+
+                if amount > remaining:
+                    messages.error(
+                        request,
+                        f"Expense exceeds the remaining budget of "
+                        f"₱{remaining:,.2f}.",
+                    )
+                    return redirect("/#budgets")
+
+                # Save the expense as a real transaction.
                 Transaction.objects.create(
+                    user=request.user,
                     transaction_type="Expense",
-                    amount=expense_amount,
-                    description=f"{budget.category} expense",
+                    amount=amount,
+                    description=f"Budget expense - {budget.category}",
                     date=expense_date,
-                    payment_method="Other",
+                    payment_method=budget.payment_method or "Cash",
                     fund_type="Cash",
                     category=budget.category,
                     allocation="Needs",
@@ -170,287 +343,225 @@ def index(request):
 
                 messages.success(
                     request,
-                    f"₱{expense_amount:,.2f} expense added to "
-                    f"{budget.category}. Your remaining budget has been updated."
+                    f"₱{amount:,.2f} expense added to your "
+                    f"{budget.category} budget.",
                 )
 
-            elif action == "delete":
-                transaction = get_object_or_404(
-                    Transaction, pk=request.POST.get("transaction_id")
+            except (InvalidOperation, ValueError, TypeError):
+                messages.error(
+                    request,
+                    "Please enter a valid expense amount.",
                 )
+
+            return redirect("/#budgets")
+
+        # -------------------------
+        # DELETE TRANSACTION
+        # -------------------------
+        elif action == "delete":
+            transaction = Transaction.objects.filter(
+                transaction_id=request.POST.get("transaction_id"),
+                user=request.user,
+            ).first()
+
+            if transaction:
                 transaction.delete()
-                messages.success(request, "Transaction deleted successfully.")
-
-
-                        # BUDGETS
-            elif action in ["add_budget", "edit_budget"]:
-                budget_id = request.POST.get("budget_id")
-
-                if action == "edit_budget":
-                    budget = get_object_or_404(
-                        Budget, pk=budget_id
-                    )
-                else:
-                    budget = Budget()
-
-                category = request.POST.get(
-                    "budget_category", ""
-                ).strip()
-
-                if category == "Others":
-                    category = request.POST.get(
-                        "budget_category_other", ""
-                    ).strip()
-
-                amount = parse_amount(
-                    request.POST.get("budget_amount", ""),
-                    field_name="Budget amount",
-                )
-
-                spending_limit = parse_amount(
-                    request.POST.get("spending_limit", ""),
-                    field_name="Spending limit",
-                )
-
-                start_date = parse_date(
-                    request.POST.get("start_date"),
-                    "start date",
-                )
-
-                end_date = parse_date(
-                    request.POST.get("end_date"),
-                    "end date",
-                )
-
-                if not category:
-                    raise ValueError(
-                        "Please select or enter a budget category."
-                    )
-
-                if len(category) > 100:
-                    raise ValueError(
-                        "Budget category cannot exceed 100 characters."
-                    )
-
-                if end_date < start_date:
-                    raise ValueError(
-                        "End date cannot be before start date."
-                    )
-
-                if spending_limit > amount:
-                    raise ValueError(
-                        "The spending limit cannot exceed the total budget."
-                    )
-
-                budget.category = category
-                budget.amount = amount
-                budget.spending_limit = spending_limit
-                budget.start_date = start_date
-                budget.end_date = end_date
-                budget.save()
-
                 messages.success(
-                    request,
-                    "Budget saved successfully."
+                    request, "Transaction deleted successfully."
                 )
-
-            elif action == "delete_budget":
-                budget = get_object_or_404(
-                    Budget,
-                    pk=request.POST.get("budget_id")
-                )
-                budget.delete()
-
-                messages.success(
-                    request,
-                    "Budget deleted successfully."
-                )
-
-            
-            # SAVINGS GOALS
-            elif action in ["add_goal", "edit_goal"]:
-                goal_id = request.POST.get("goal_id")
-
-                if action == "edit_goal":
-                    goal = get_object_or_404(
-                        SavingsGoal, pk=goal_id
-                    )
-                else:
-                    goal = SavingsGoal()
-
-                selected_category = request.POST.get(
-                    "goal_category", ""
-                ).strip()
-
-                if selected_category == "Others":
-                    goal_name = request.POST.get(
-                        "goal_name_other", ""
-                    ).strip()
-                else:
-                    goal_name = selected_category
-
-                target_amount = parse_amount(
-                    request.POST.get("target_amount", ""),
-                    field_name="Target amount",
-                )
-
-                current_amount = parse_amount(
-                    request.POST.get("current_amount", "0"),
-                    field_name="Current savings",
-                    allow_zero=True,
-                )
-
-                target_date = parse_date(
-                    request.POST.get("target_date"),
-                    "target date",
-                )
-
-                if selected_category not in SAVINGS_GOAL_CATEGORIES:
-                    raise ValueError("Choose a valid savings-goal category.")
-
-                if not goal_name:
-                    raise ValueError(
-                        "Please select a goal or enter a custom goal name."
-                    )
-
-                if len(goal_name) > 100:
-                    raise ValueError("Goal name cannot exceed 100 characters.")
-
-                goal.goal_name = goal_name
-                goal.target_amount = target_amount
-                goal.current_amount = current_amount
-                goal.target_date = target_date
-                goal.save()
-
-                messages.success(request, "Savings goal saved successfully.")
-
-            elif action == "contribute_goal":
-                goal = get_object_or_404(
-                    SavingsGoal,
-                    pk=request.POST.get("goal_id"),
-                )
-
-                contribution = parse_amount(
-                    request.POST.get("contribution_amount", ""),
-                    field_name="Contribution",
-                )
-
-                goal.current_amount += contribution
-                goal.save(update_fields=["current_amount"])
-
-                messages.success(
-                    request,
-                    f"₱{contribution:,.2f} added to {goal.goal_name}.",
-                )
-
-            elif action == "delete_goal":
-                goal = get_object_or_404(
-                    SavingsGoal,
-                    pk=request.POST.get("goal_id"),
-                )
-                goal.delete()
-                messages.success(request, "Savings goal deleted successfully.")
-
             else:
-                messages.error(request, "Unknown action.")
+                messages.error(request, "Transaction not found.")
 
-        except ValueError as error:
-            messages.error(request, str(error))
-        except InvalidOperation:
-            messages.error(request, "Please enter a valid amount.")
+            return redirect("/#transactions")
 
-        return redirect("index")
+       
+        # -------------------------
+        # ADD TRANSACTION
+        # -------------------------
+        elif action == "add":
+            try:
+                amount = Decimal(request.POST.get("amount", "0"))
+                transaction_date = date.fromisoformat(
+                    request.POST.get("date", "")
+                )
 
-    # DASHBOARD TOTALS
+                transaction_type = request.POST.get(
+                    "transaction_type", ""
+                ).strip()
+                description = request.POST.get("description", "").strip()
+                category = request.POST.get("category", "").strip()
+                payment_method = request.POST.get(
+                    "payment_method", ""
+                ).strip()
+
+                if amount <= 0:
+                    raise ValueError("Amount must be greater than zero.")
+
+                if transaction_type.lower() not in ("income", "expense"):
+                    raise ValueError("Select Income or Expense.")
+
+                if not all((description, category, payment_method)):
+                    raise ValueError("Please complete all required fields.")
+
+                # Block expenses if the matching budget is exhausted.
+                if transaction_type.lower() == "expense":
+                    matching_budgets = Budget.objects.filter(
+                        user=request.user,
+                        category__iexact=category,
+                        start_date__lte=transaction_date,
+                        end_date__gte=transaction_date,
+                    )
+
+                    for budget in matching_budgets:
+                        spending_limit = (
+                            budget.spending_limit or budget.amount
+                        )
+
+                        spent = sum(
+                            Transaction.objects.filter(
+                                user=request.user,
+                                transaction_type__iexact="expense",
+                                category__iexact=budget.category,
+                                date__gte=budget.start_date,
+                                date__lte=budget.end_date,
+                            ).values_list("amount", flat=True),
+                            Decimal("0.00"),
+                        )
+
+                        remaining = spending_limit - spent
+
+                        if remaining <= 0:
+                            messages.error(
+                                request,
+                                f"The {budget.category} budget is exhausted. "
+                                "You cannot add more expenses to this budget.",
+                            )
+                            return redirect("/#budgets")
+
+                Transaction.objects.create(
+                    user=request.user,
+                    transaction_type=transaction_type,
+                    amount=amount,
+                    description=description,
+                    date=transaction_date,
+                    payment_method=payment_method,
+                    fund_type=request.POST.get("fund_type", "Cash"),
+                    category=category,
+                    allocation=request.POST.get("allocation", "Needs"),
+                    money_plan=request.POST.get("money_plan", "").strip(),
+                    priority=request.POST.get("priority", "Medium"),
+                )
+
+                messages.success(
+                    request, "Transaction added successfully."
+                )
+
+            except (InvalidOperation, ValueError, TypeError):
+                messages.error(
+                    request,
+                    "Please check the transaction details and try again.",
+                )
+
+            return redirect("/#transactions")
+
+
+    # -------------------------
+    # LOAD DASHBOARD DATA
+    # -------------------------
+    transactions = Transaction.objects.filter(
+        user=request.user
+    ).order_by("-date", "-transaction_id")
+
+    budgets = Budget.objects.filter(
+        user=request.user
+    ).order_by("-start_date")
+
+    savings_goals = SavingsGoal.objects.filter(
+        user=request.user
+    ).order_by("-goal_id")
+
+    # Calculate totals from the logged-in user's actual transactions.
     income = (
-        Transaction.objects.filter(
-            transaction_type__iexact="Income"
+        transactions.filter(
+            transaction_type__iexact="income"
         ).aggregate(total=Sum("amount"))["total"]
         or Decimal("0.00")
     )
 
     expenses = (
-        Transaction.objects.filter(
-            transaction_type__iexact="Expense"
+        transactions.filter(
+            transaction_type__iexact="expense"
         ).aggregate(total=Sum("amount"))["total"]
         or Decimal("0.00")
     )
 
-    transactions = Transaction.objects.order_by("-date", "-transaction_id")
+    balance = income - expenses
 
-        # BUDGET SPENDING AND PROGRESS
-    budgets = list(
-        Budget.objects.order_by("end_date", "category")
-    )
-
+    # Calculate each budget's spending and progress.
     for budget in budgets:
-        spent = (
-            Transaction.objects.filter(
-                transaction_type__iexact="Expense",
-                category__iexact=budget.category,
-                date__range=(
-                    budget.start_date,
-                    budget.end_date,
-                ),
-            ).aggregate(total=Sum("amount"))["total"]
-            or Decimal("0.00")
-        )
+        spending_limit = budget.spending_limit or budget.amount
 
-        # Existing budgets without a limit use their budget amount.
-        limit = (
-            budget.spending_limit
-            if budget.spending_limit is not None
-            else budget.amount
+        spent = sum(
+            (
+                transaction.amount
+                for transaction in transactions
+                if transaction.transaction_type.lower() == "expense"
+                and transaction.category.lower() == budget.category.lower()
+                and budget.start_date <= transaction.date <= budget.end_date
+            ),
+            Decimal("0.00"),
         )
 
         budget.spent = spent
-        budget.effective_limit = limit
-
-        # Money left from the full allocated budget.
-        budget.remaining = budget.amount - spent
-
-        # Money left before reaching the spending limit.
-        budget.limit_remaining = limit - spent
-
-        if limit > 0:
-            budget.percent = min(
-                100,
-                int(spent / limit * 100)
-            )
-        else:
-            budget.percent = 100 if spent > 0 else 0
-
-        budget.over_limit = spent > limit
-        budget.over_budget = spent > budget.amount
-
-    
-    # SAVINGS GOAL PROGRESS
-    savings_goals = list(SavingsGoal.objects.order_by("target_date"))
-
-    for goal in savings_goals:
-        goal.percent = (
-            min(100, int(goal.current_amount / goal.target_amount * 100))
-            if goal.target_amount
-            else 0
+        budget.remaining = spending_limit - spent
+        budget.percent = min(
+            100,
+            int((spent / spending_limit * 100))
+            if spending_limit > 0 else 0,
         )
+        budget.over_budget = spent > budget.amount
+        budget.over_limit = spent > spending_limit
 
+    # Calculate each savings goal's progress.
+    for goal in savings_goals:
         goal.remaining = max(
             Decimal("0.00"),
-            goal.target_amount - goal.current_amount
+            goal.target_amount - goal.current_amount,
+        )
+        goal.percent = min(
+            100,
+            int((goal.current_amount / goal.target_amount * 100))
+            if goal.target_amount > 0 else 0,
         )
 
-    # DASHBOARD CONTEXT
-    # Keep this OUTSIDE the savings_goals loop.
     context = {
-        "income": income,
-        "expenses": expenses,
-        "balance": income - expenses,
         "transactions": transactions,
         "budgets": budgets,
         "savings_goals": savings_goals,
-        "today": timezone.localdate().isoformat(),
-        "budget_categories": BUDGET_CATEGORIES,
-        "savings_goal_categories": SAVINGS_GOAL_CATEGORIES,
+        "income": income,
+        "expenses": expenses,
+        "balance": balance,
+        "today": date.today().isoformat(),
+        "budget_categories": [
+            "Food", "Transport", "Housing", "Utilities",
+            "Education", "Health", "Entertainment",
+            "Shopping", "Savings", "Others",
+        ],
+        "savings_goal_categories": [
+            "Emergency Fund", "Travel", "Education",
+            "New Gadget", "Vehicle", "House",
+            "Retirement", "Others",
+        ],
     }
 
     return render(request, "InvApp/dashboard.html", context)
+
+
+@login_required
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        messages.success(request, "You have logged out.")
+        return redirect("login")
+
+    return redirect("index")

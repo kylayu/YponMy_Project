@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign Up | Budget Buddy</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --green: #198754;
+            --dark-green: #116442;
+            --light-green: #eaf7ef;
+            --text: #203b2e;
+            --muted: #84938a;
+            --border: #e2ebe4;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 16px;
+            display: grid;
+            place-items: center;
+            background:
+                radial-gradient(circle at 10% 10%, #d9f3e3 0, transparent 30%),
+                radial-gradient(circle at 90% 90%, #dff3e7 0, transparent 30%),
+                #f7faf7;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+        }
+
+        .auth-wrapper {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 22px;
+            color: var(--dark-green);
+            font-size: 25px;
+            font-weight: 850;
+            letter-spacing: -0.8px;
+        }
+
+        .brand-icon {
+            display: grid;
+            place-items: center;
+            width: 43px;
+            height: 43px;
+            border-radius: 14px;
+            color: white;
+            background: var(--green);
+            box-shadow: 0 6px 15px #19875430;
+        }
+
+        .auth-card {
+            padding: 32px;
+            background: #fff;
+            border: 1px solid #e7eee8;
+            border-radius: 23px;
+            box-shadow: 0 16px 50px #183c280c;
+        }
+
+        .welcome-icon {
+            display: grid;
+            place-items: center;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 18px;
+            border-radius: 19px;
+            color: var(--green);
+            background: var(--light-green);
+            font-size: 27px;
+        }
+
+        .welcome-title {
+            margin-bottom: 8px;
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+        }
+
+        .welcome-text {
+            margin-bottom: 25px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .form-label {
+            margin-bottom: 7px;
+            color: #344b3d;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            z-index: 2;
+            color: #92a399;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .form-control {
+            width: 100%;
+            min-height: 47px;
+            padding: 11px 42px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: #fbfdfb;
+            color: var(--text);
+            font-size: 14px;
+            box-shadow: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--green);
+            background: #fff;
+            box-shadow: 0 0 0 3px #19875415;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            z-index: 3;
+            padding: 4px;
+            border: 0;
+            background: transparent;
+            color: #829287;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .password-toggle:hover {
+            color: var(--green);
+        }
+
+        .helptext {
+            display: block;
+            margin-top: 7px;
+            color: #84938a;
+            font-size: 11px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .helptext ul {
+            margin: 5px 0 0;
+            padding-left: 18px;
+        }
+
+        .helptext li {
+            margin-bottom: 3px;
+        }
+
+        ul.errorlist {
+            margin: 7px 0 0;
+            padding-left: 18px;
+            color: #dc3545;
+            font-size: 12px;
+        }
+
+        .alert {
+            border-radius: 10px;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .alert ul {
+            margin-bottom: 0;
+            padding-left: 18px;
+        }
+
+        .btn-green {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            width: 100%;
+            min-height: 49px;
+            margin-top: 10px;
+            border: 0;
+            border-radius: 11px;
+            background: var(--green);
+            color: white;
+            font-size: 14px;
+            font-weight: 750;
+            transition: background .2s ease, transform .2s ease;
+        }
+
+        .btn-green:hover {
+            background: var(--dark-green);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .login-text {
+            margin: 23px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .login-text a {
+            color: var(--green);
+            font-weight: 750;
+            text-decoration: none;
+        }
+
+        .login-text a:hover {
+            color: var(--dark-green);
+            text-decoration: underline;
+        }
+
+        .security-note {
+            margin-top: 20px;
+            color: #9aa79e;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .security-note i {
+            margin-right: 5px;
+            color: var(--green);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 22px 14px;
+            }
+
+            .auth-card {
+                padding: 24px 20px;
+                border-radius: 19px;
+            }
+
+            .welcome-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="auth-wrapper">
+
+        <div class="brand">
+            <span class="brand-icon">
+                <i class="bi bi-wallet2"></i>
+            </span>
+            Budget Buddy
+        </div>
+
+        <section class="auth-card">
+
+            <h1 class="welcome-title">Create your account</h1>
+
+            <p class="welcome-text">
+                Start building better money habits.
+                Create your account and take control of your finances.
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                {% for field in form %}
+                    <div class="mb-3">
+
+                        <label class="form-label" for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+
+                        <div class="input-wrap">
+
+                            {% if field.name == "username" %}
+                                <i class="bi bi-person input-icon"></i>
+                            {% elif field.name == "email" %}
+                                <i class="bi bi-envelope input-icon"></i>
+                            {% elif "password" in field.name %}
+                                <i class="bi bi-lock input-icon"></i>
+                            {% else %}
+                                <i class="bi bi-pencil input-icon"></i>
+                            {% endif %}
+
+                            <input
+                                type="{{ field.field.widget.input_type }}"
+                                name="{{ field.html_name }}"
+                                id="{{ field.id_for_label }}"
+                                class="form-control{% if field.errors %} is-invalid{% endif %}"
+                                placeholder="{% if field.name == 'username' %}Choose a username{% elif field.name == 'email' %}Enter your email address{% elif 'password' in field.name %}Create a strong password{% else %}Enter {{ field.label|lower }}{% endif %}"
+                                {% if field.name == "username" %}
+                                    autocomplete="username"
+                                {% elif field.name == "email" %}
+                                    autocomplete="email"
+                                {% elif field.name == "password1" %}
+                                    autocomplete="new-password"
+                                {% elif field.name == "password2" %}
+                                    autocomplete="new-password"
+                                {% else %}
+                                    autocomplete="off"
+                                {% endif %}
+                                {% if field.value and "password" not in field.name %}
+                                    value="{{ field.value }}"
+                                {% endif %}
+                                {% if field.field.required %}required{% endif %}
+                            >
+
+                            {% if "password" in field.name %}
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-password-target="{{ field.id_for_label }}"
+                                    aria-label="Show password"
+                                    aria-pressed="false"
+                                >
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            {% endif %}
+
+                        </div>
+
+                        {% if field.help_text %}
+                            <div class="helptext">
+                                {{ field.help_text|safe }}
+                            </div>
+                        {% endif %}
+
+                        {{ field.errors }}
+
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-green">
+                    Create Account
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+
+            </form>
+
+            <p class="login-text">
+                Already have an account?
+                <a href="{% url 'login' %}">Log in</a>
+            </p>
+
+        </section>
+
+        <div class="security-note">
+            <i class="bi bi-shield-lock"></i>
+            Your financial journey, protected.
+        </div>
+
+    </main>
+
+    <script>
+        document.querySelectorAll(".password-toggle").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const input = document.getElementById(
+                    button.dataset.passwordTarget
+                );
+
+                const icon = button.querySelector("i");
+                const showPassword = input.type === "password";
+
+                input.type = showPassword ? "text" : "password";
+                icon.className = showPassword
+                    ? "bi bi-eye-slash"
+                    : "bi bi-eye";
+
+                button.setAttribute(
+                    "aria-label",
+                    showPassword ? "Hide password" : "Show password"
+                );
+
+                button.setAttribute(
+                    "aria-pressed",
+                    String(showPassword)
+                );
+            });
+        });
+    </script>
+</body>
+</html>

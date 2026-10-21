@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Budget Buddy | Personal Finance</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
 
     <style>
         :root {
@@ -20,8 +22,6 @@
         }
 
         * { box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
@@ -71,7 +71,6 @@
             color: #718078;
             font-size: 14px;
             font-weight: 600;
-            transition: .2s;
         }
 
         .side-link:hover,
@@ -98,13 +97,6 @@
             min-height: 100vh;
         }
 
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 28px;
-        }
         .page-section {
     display: none;
 }
@@ -112,13 +104,21 @@
 .page-section.active {
     display: block;
 }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 28px;
+        }
+
         .page-title {
             font-size: 27px;
             font-weight: 800;
             margin: 0;
             letter-spacing: -.7px;
         }
-
 
         .subtitle {
             color: var(--muted);
@@ -274,7 +274,6 @@
         .panel {
             padding: 23px;
             margin-bottom: 25px;
-            scroll-margin-top: 20px;
         }
 
         .table-responsive { overflow-x: auto; }
@@ -326,7 +325,7 @@
             border: 1px solid var(--border);
             background: white;
             border-radius: 7px;
-            padding: 6px 9px;
+            padding: 7px 11px;
             color: #617067;
             font-size: 12px;
             white-space: nowrap;
@@ -342,16 +341,22 @@
             color: #c64537;
         }
 
-        .lower-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 22px;
+        .action-btn.add-expense-btn {
+            background-color: #198754;
+            color: #fff;
+            border: 1px solid #198754;
+            margin-bottom: 12px;
+        }
+
+        .action-btn.add-expense-btn:hover {
+            background-color: #157347;
+            color: #fff;
         }
 
         .mini-card {
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 15px;
+            padding: 17px;
             margin-bottom: 12px;
         }
 
@@ -364,7 +369,11 @@
         }
 
         .mini-amount { font-size: 12px; font-weight: 700; }
-        .mini-meta { font-size: 11px; color: var(--muted); margin-top: 7px; }
+        .mini-meta {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 7px;
+        }
 
         .progress {
             height: 7px;
@@ -426,6 +435,85 @@
             line-height: 1.6;
         }
 
+        /* SAVINGS GOALS CARD DESIGN */
+        .goal-card {
+            height: 100%;
+            margin-bottom: 0;
+            padding: 22px;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 4px 16px rgba(25, 60, 40, .04);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .goal-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(25, 60, 40, .09);
+        }
+
+        .goal-card .goal-title {
+            font-size: 17px;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .goal-card .goal-current {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--green);
+            overflow-wrap: anywhere;
+        }
+
+        .goal-card .goal-target {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .goal-management-buttons {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .goal-management-buttons form {
+            margin: 0;
+        }
+
+        .goal-management-buttons .action-btn {
+            min-width: 90px;
+            text-align: center;
+        }
+
+        .goal-reached {
+            width: 100%;
+            text-align: center;
+            color: #198754;
+            font-weight: 700;
+            padding: 10px;
+            border-radius: 8px;
+            background: #e8f5ee;
+            margin-top: 18px;
+        }
+
+        .goal-card .progress {
+            height: 9px;
+            margin-top: 10px;
+            margin-bottom: 8px;
+        }
+
+        .goal-contribution {
+            padding-top: 18px;
+            margin-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .goal-contribution .btn-green {
+            white-space: nowrap;
+        }
+
         @media (max-width: 1100px) {
             .sidebar { width: 205px; }
             .main { margin-left: 205px; padding: 25px 22px; }
@@ -476,12 +564,3451 @@
             .stat-card { padding: 18px; }
             .stat-top { margin-bottom: 12px; }
             .stat-value { font-size: 25px; }
-            .lower-grid { grid-template-columns: 1fr; gap: 0; }
             .panel { padding: 16px; }
             .section-heading { align-items: flex-start; }
             .btn-green { padding: 10px 12px; }
+
+            .goal-card { padding: 18px; }
+            .goal-management-buttons { gap: 9px; }
         }
+        
+/* CREATIVE DASHBOARD */
+.dashboard-eyebrow,
+.panel-eyebrow {
+    color: #198754;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+}
+
+.creative-welcome {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    overflow: hidden;
+    min-height: 290px;
+    padding: 35px 38px;
+    margin-bottom: 32px;
+    color: #fff;
+    border-radius: 24px;
+    background: linear-gradient(115deg, #103e2b 0%, #176943 50%, #2e9b68 100%);
+    box-shadow: 0 15px 35px rgba(18, 91, 58, .14);
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 3;
+    max-width: 520px;
+}
+
+.welcome-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 30px;
+    background: rgba(255,255,255,.09);
+    color: #d9f5e5;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.creative-welcome h2 {
+    margin: 20px 0 12px;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 850;
+    line-height: 1.08;
+    letter-spacing: -1.7px;
+}
+
+.creative-welcome h2 span {
+    color: #a6f0c3;
+}
+
+.creative-welcome p {
+    max-width: 420px;
+    color: #d8eade;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.welcome-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.welcome-primary,
+.welcome-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.welcome-primary {
+    border: 1px solid #fff;
+    background: #fff;
+    color: #176943;
+}
+
+.welcome-primary:hover {
+    background: #e8f8ee;
+    transform: translateY(-2px);
+}
+
+.welcome-secondary {
+    border: 1px solid rgba(255,255,255,.3);
+    background: rgba(255,255,255,.08);
+    color: white;
+}
+
+.welcome-secondary:hover {
+    background: rgba(255,255,255,.17);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.welcome-art {
+    position: relative;
+    flex: 0 0 260px;
+    width: 260px;
+    height: 220px;
+    z-index: 1;
+}
+
+.art-circle {
+    position: absolute;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 50%;
+}
+
+.art-circle-one {
+    width: 220px;
+    height: 220px;
+    top: 0;
+    left: 20px;
+}
+
+.art-circle-two {
+    width: 165px;
+    height: 165px;
+    top: 27px;
+    left: 48px;
+    background: rgba(255,255,255,.04);
+}
+
+.art-wallet {
+    position: absolute;
+    top: 54px;
+    left: 68px;
+    display: grid;
+    place-items: center;
+    width: 125px;
+    height: 105px;
+    border: 1px solid rgba(255,255,255,.45);
+    border-radius: 25px;
+    background: linear-gradient(145deg, #e3f9e9, #a6e6bf);
+    color: #176943;
+    font-size: 65px;
+    transform: rotate(-9deg);
+    box-shadow: 0 18px 35px rgba(0,0,0,.17);
+}
+
+.art-coin {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 4px solid #fff1b8;
+    border-radius: 50%;
+    background: #f5cf64;
+    color: #77551a;
+    font-size: 22px;
+    font-weight: 900;
+    box-shadow: 0 8px 18px rgba(0,0,0,.13);
+}
+
+.coin-one {
+    top: 27px;
+    right: 4px;
+}
+
+.coin-two {
+    bottom: 19px;
+    left: 23px;
+    background: #d2edff;
+    border-color: #eff9ff;
+    color: #2675a5;
+    font-size: 18px;
+}
+
+.art-sparkle {
+    position: absolute;
+    color: #d4f6b2;
+    font-size: 30px;
+}
+
+.sparkle-one {
+    top: 5px;
+    left: 18px;
+}
+
+.sparkle-two {
+    right: 13px;
+    bottom: 25px;
+}
+
+.welcome-decoration {
+    position: absolute;
+    z-index: -1;
+    right: -90px;
+    bottom: -170px;
+    width: 390px;
+    height: 390px;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 50%;
+    box-shadow: 0 0 0 35px rgba(255,255,255,.025),
+                0 0 0 75px rgba(255,255,255,.02);
+}
+
+.dashboard-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 17px;
+}
+
+.dashboard-section-title h3 {
+    margin: 0;
+    color: #25352d;
+    font-size: 17px;
+    font-weight: 850;
+}
+
+.dashboard-section-title p {
+    margin: 5px 0 0;
+    color: #849188;
+    font-size: 12px;
+}
+
+.live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #6c7e72;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.live-indicator span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #28a66a;
+    box-shadow: 0 0 0 4px #e5f7ec;
+}
+
+.creative-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+    margin-bottom: 32px;
+}
+
+.creative-stat {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-width: 0;
+    padding: 23px;
+    border: 1px solid #e8ede9;
+    border-radius: 19px;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(25,60,40,.035);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.creative-stat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(25,60,40,.08);
+}
+
+.creative-stat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 23px;
+}
+
+.creative-stat-icon {
+    display: grid;
+    place-items: center;
+    width: 47px;
+    height: 47px;
+    border-radius: 15px;
+    background: #e5f6eb;
+    color: #198754;
+    font-size: 22px;
+}
+
+.income-stat .creative-stat-icon {
+    background: #e5f6eb;
+    color: #16864f;
+}
+
+.expense-stat .creative-stat-icon {
+    background: #fff0ed;
+    color: #d75f50;
+}
+
+.stat-chip {
+    padding: 6px 8px;
+    border-radius: 7px;
+    background: #f5f8f5;
+    color: #829087;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: .7px;
+}
+
+.creative-stat-label {
+    margin-bottom: 8px;
+    color: #78877d;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.creative-stat-value {
+    position: relative;
+    z-index: 2;
+    font-size: clamp(19px, 2vw, 27px);
+    font-weight: 850;
+    line-height: 1.3;
+    letter-spacing: -.8px;
+    overflow-wrap: anywhere;
+}
+
+.income-stat .creative-stat-value {
+    color: #198754;
+}
+
+.expense-stat .creative-stat-value {
+    color: #d75f50;
+}
+
+.creative-stat-footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 13px;
+    color: #91a096;
+    font-size: 10px;
+}
+
+.stat-decoration {
+    position: absolute;
+    z-index: -1;
+    right: 6px;
+    bottom: -23px;
+    color: rgba(25,135,84,.045);
+    font-size: 105px;
+    transform: rotate(-14deg);
+}
+
+.income-stat .stat-decoration {
+    color: rgba(25,135,84,.055);
+}
+
+.expense-stat .stat-decoration {
+    color: rgba(215,95,80,.06);
+}
+
+.quick-actions-panel {
+    margin-bottom: 30px;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.quick-action {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    padding: 17px;
+    text-align: left;
+    border: 1px solid #e8ede9;
+    border-radius: 15px;
+    background: #fff;
+    transition: border-color .2s ease, transform .2s ease,
+                box-shadow .2s ease;
+}
+
+.quick-action:hover {
+    border-color: #a8d8b9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(25,60,40,.055);
+}
+
+.quick-action-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 43px;
+    width: 43px;
+    height: 43px;
+    border-radius: 13px;
+    font-size: 19px;
+}
+
+.quick-purple {
+    background: #f0eaff;
+    color: #7655bf;
+}
+
+.quick-blue {
+    background: #e8f2ff;
+    color: #477ed7;
+}
+
+.quick-orange {
+    background: #fff1e4;
+    color: #d58a35;
+}
+
+.quick-green {
+    background: #e5f6eb;
+    color: #198754;
+}
+
+.quick-action-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.quick-action-text strong {
+    color: #304238;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.quick-action-text small {
+    color: #849188;
+    font-size: 10px;
+}
+
+.quick-action-arrow {
+    color: #a2afa6;
+    font-size: 15px;
+}
+
+.creative-transactions {
+    padding: 24px;
+    border-radius: 19px;
+}
+
+.creative-transactions .section-heading {
+    margin-bottom: 22px;
+}
+
+.creative-table thead th {
+    background: #f8faf8;
+}
+
+.creative-table tbody tr:hover {
+    background: #fbfdfb;
+}
+
+.creative-transaction-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.transaction-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    font-size: 17px;
+}
+
+.transaction-income-icon {
+    background: #e5f6eb;
+    color: #198754;
+}
+
+.transaction-expense-icon {
+    background: #fff0ed;
+    color: #d75f50;
+}
+
+.transaction-date {
+    color: #718078;
+    font-size: 11px;
+}
+
+.creative-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 9px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.income-type {
+    background: #e5f6eb;
+    color: #18864e;
+}
+
+.expense-type {
+    background: #fff0ed;
+    color: #d75f50;
+}
+
+.money-motivation {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 21px 23px;
+    margin-bottom: 20px;
+    border: 1px solid #dcefe2;
+    border-radius: 17px;
+    background: linear-gradient(110deg, #f0faf3, #fff);
+}
+
+.motivation-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: #dff4e6;
+    color: #198754;
+    font-size: 22px;
+}
+
+.money-motivation h4 {
+    margin: 0 0 5px;
+    color: #205b3d;
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.money-motivation p {
+    margin: 0;
+    color: #718078;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.motivation-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+    margin-left: auto;
+    border: 0;
+    background: transparent;
+    color: #198754;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.motivation-link:hover {
+    color: #116442;
+}
+
+/* Responsive dashboard */
+@media (max-width: 1000px) {
+    .creative-welcome {
+        padding: 28px;
+    }
+
+    .welcome-art {
+        flex-basis: 205px;
+        transform: scale(.85);
+        transform-origin: center right;
+        margin-left: -25px;
+    }
+
+    .creative-stats {
+        gap: 12px;
+    }
+
+    .creative-stat {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 760px) {
+    .creative-welcome {
+        min-height: auto;
+        padding: 25px 21px;
+        border-radius: 19px;
+    }
+
+    .welcome-content {
+        max-width: 100%;
+    }
+
+    .welcome-art {
+        display: none;
+    }
+
+    .creative-welcome h2 {
+        font-size: 35px;
+    }
+
+    .creative-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .creative-stat {
+        padding: 19px;
+    }
+
+    .creative-stat-header {
+        margin-bottom: 14px;
+    }
+
+    .creative-stat-value {
+        font-size: 25px;
+    }
+
+    .quick-actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-section-title {
+        align-items: flex-start;
+    }
+
+    .live-indicator {
+        font-size: 9px;
+    }
+
+    .creative-transactions {
+        padding: 15px;
+    }
+
+    .money-motivation {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding: 17px;
+    }
+
+    .money-motivation > div:nth-child(2) {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .motivation-link {
+        margin-left: 61px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .creative-stat,
+    .quick-action,
+    .welcome-primary,
+    .welcome-secondary {
+        transition: none;
+    }
+}
+/* ==========================================
+   BUDGET BUDDY - GREEN GOALS & BUDGETS THEME
+========================================== */
+
+.green-goals-page,
+.green-budgets-page {
+    --bb-green: #168653;
+    --bb-dark: #126b43;
+    --bb-light: #eaf8ef;
+    --bb-mint: #d8f5e3;
+    --bb-text: #203b2e;
+    --bb-muted: #7b9184;
+    --bb-border: #e4eee7;
+    padding: 24px;
+    color: var(--bb-text);
+}
+
+/* SHARED GREEN HERO */
+.green-page-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    min-height: 255px;
+    padding: 35px 40px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    color: #fff;
+    background: linear-gradient(120deg, #105c3b, #168653 55%, #36ad70);
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(22, 134, 83, .16);
+}
+
+.green-page-hero::before,
+.green-page-hero::after {
+    position: absolute;
+    content: "";
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.green-page-hero::before {
+    width: 280px;
+    height: 280px;
+    top: -175px;
+    right: 100px;
+}
+
+.green-page-hero::after {
+    width: 360px;
+    height: 360px;
+    right: -110px;
+    bottom: -260px;
+}
+
+.green-hero-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.green-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-bottom: 14px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.19);
+    border-radius: 30px;
+}
+
+.green-hero-copy h1 {
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: clamp(29px, 4vw, 42px);
+    font-weight: 850;
+    letter-spacing: -1.2px;
+}
+
+.green-hero-copy p {
+    max-width: 470px;
+    margin: 0 0 23px;
+    color: rgba(255,255,255,.85);
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+.green-primary-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 18px;
+    color: #126b43;
+    font-size: 12px;
+    font-weight: 800;
+    background: #fff;
+    border: 1px solid rgba(255,255,255,.6);
+    border-radius: 11px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    transition: .2s ease;
+}
+
+.green-primary-btn:hover {
+    color: #105c3b;
+    background: #eaf8ef;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+.green-hero-art {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 0 0 215px;
+    align-items: center;
+    justify-content: center;
+    width: 215px;
+    height: 185px;
+}
+
+.goals-art-circle,
+.budgets-art-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 140px;
+    color: #fff;
+    font-size: 75px;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 40px;
+    box-shadow: 0 12px 25px rgba(0,0,0,.08);
+    transform: rotate(-6deg);
+}
+
+.goals-art-circle i,
+.budgets-art-circle i {
+    transform: rotate(6deg);
+}
+
+.goals-art-coin,
+.budgets-art-bubble {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    color: #168653;
+    font-size: 19px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+.coin-a {
+    top: 4px;
+    right: 12px;
+    transform: rotate(10deg);
+}
+
+.coin-b {
+    bottom: 10px;
+    left: 5px;
+    color: #c48b17;
+    transform: rotate(-10deg);
+}
+
+.goals-art-check,
+.budgets-art-label {
+    position: absolute;
+    right: -7px;
+    bottom: 9px;
+    padding: 9px 11px;
+    color: #176b43;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 7px 18px rgba(0,0,0,.1);
+}
+
+.goals-art-check i,
+.budgets-art-label i {
+    margin-right: 4px;
+    color: #20a464;
+}
+
+.budgets-bubble-a {
+    top: 3px;
+    right: 10px;
+}
+
+.budgets-bubble-b {
+    bottom: 11px;
+    left: 2px;
+    color: #d5a02d;
+}
+
+/* SHARED SECTION HEADINGS */
+.green-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 21px;
+}
+
+.green-section-kicker {
+    display: inline-block;
+    color: #168653;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 1.3px;
+}
+
+.green-section-heading h2 {
+    margin: 6px 0;
+    color: #203b2e;
+    font-size: 22px;
+    font-weight: 850;
+    letter-spacing: -.5px;
+}
+
+.green-section-heading h2 > i {
+    margin-right: 5px;
+    color: #168653;
+}
+
+.green-section-heading p {
+    margin: 0;
+    color: #819487;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.green-outline-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 15px;
+    color: #168653;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+    background: #f0faf3;
+    border: 1px solid #d6efdf;
+    border-radius: 10px;
+    transition: .2s;
+}
+
+.green-outline-btn:hover {
+    color: #fff;
+    background: #168653;
+    border-color: #168653;
+}
+
+/* ==========================================
+   SAVINGS GOALS
+========================================== */
+
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 19px;
+}
+
+.green-goal-card {
+    min-width: 0;
+    padding: 23px;
+    background: #fff;
+    border: 1px solid var(--bb-border);
+    border-radius: 19px;
+    box-shadow: 0 5px 20px rgba(25,80,48,.035);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.green-goal-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(25,80,48,.08);
+}
+
+.goal-card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.goal-card-icon {
+    display: flex;
+    flex: 0 0 48px;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    color: #168653;
+    font-size: 22px;
+    background: #e9f8ee;
+    border: 1px solid #d9f0e1;
+    border-radius: 15px;
+}
+#goals-section .goal-title-wrap {
+    display: block;
+    flex: 1 1 0%;
+    min-width: 0;
+    overflow: visible;
+}
+
+#goals-section .goal-title-wrap h3 {
+    display: block;
+    margin: 0 0 6px;
+    color: #203b2e;
+    font-size: 15px;
+    font-weight: 850;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    visibility: visible;
+    opacity: 1;
+}
+
+#goals-section .goal-title-wrap .goal-date {
+    display: block;
+    color: #87998d;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.goal-date {
+    display: block;
+    color: #87998d;
+    font-size: 10px;
+}
+
+.goal-date i {
+    margin-right: 4px;
+    color: #168653;
+}
+
+#goals-section .goal-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+#goals-section .goal-actions form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+}
+
+#goals-section .goal-actions .green-icon-btn {
+    flex-shrink: 0;
+}
+
+.green-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    color: #548267;
+    font-size: 13px;
+    background: #f3f8f4;
+    border: 1px solid #e5eee7;
+    border-radius: 9px;
+    transition: .2s;
+}
+
+.green-icon-btn:hover {
+    color: #126b43;
+    background: #e4f6e9;
+    border-color: #cdebd7;
+}
+
+.green-delete-btn:hover {
+    color: #d83f4c;
+    background: #fff0f1;
+    border-color: #ffdadd;
+}
+
+.goal-money-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+    margin-bottom: 21px;
+    background: #f6fbf7;
+    border: 1px solid #edf5ef;
+    border-radius: 13px;
+}
+
+.goal-money-panel > div {
+    min-width: 0;
+}
+
+.goal-small-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #809486;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .6px;
+}
+
+.goal-current-amount {
+    display: block;
+    color: #168653;
+    font-size: clamp(17px, 2vw, 22px);
+    font-weight: 850;
+    overflow-wrap: anywhere;
+}
+
+.goal-target-box strong {
+    display: block;
+    color: #344c3d;
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.goal-progress-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: #778c7d;
+    font-size: 11px;
+}
+
+.goal-progress-heading > span i {
+    margin-right: 4px;
+    color: #168653;
+}
+
+.goal-progress-heading strong {
+    color: #168653;
+    font-size: 12px;
+    font-weight: 850;
+}
+
+.goal-progress-track {
+    width: 100%;
+    height: 9px;
+    overflow: hidden;
+    background: #e8f1ea;
+    border-radius: 30px;
+}
+
+.goal-progress-fill {
+    height: 100%;
+    max-width: 100%;
+    background: linear-gradient(90deg, #168653, #4ac985);
+    border-radius: 30px;
+    transition: width .4s ease;
+}
+
+.goal-encouragement {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 11px;
+    margin-top: 15px;
+    color: #39805a;
+    font-size: 10px;
+    font-weight: 700;
+    background: #f0faf3;
+    border-radius: 9px;
+}
+
+.goal-encouragement i {
+    color: #30a968;
+}
+
+.goal-completed-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    margin-top: 16px;
+    color: #137647;
+    font-size: 11px;
+    font-weight: 800;
+    background: #e8f9ee;
+    border: 1px solid #d2f0dd;
+    border-radius: 10px;
+}
+
+.goal-completed-message i {
+    font-size: 17px;
+}
+
+.goal-contribution-form {
+    padding-top: 17px;
+    margin-top: 4px;
+}
+
+.goal-contribution-form > label {
+    display: block;
+    margin-bottom: 9px;
+    color: #344c3d;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.goal-contribution-form > label i {
+    margin-right: 4px;
+    color: #168653;
+}
+
+.goal-input-row {
+    display: flex;
+    align-items: stretch;
+    gap: 9px;
+}
+
+.goal-input-wrap {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    min-width: 0;
+    padding: 0 11px;
+    background: #fff;
+    border: 1px solid #dce9df;
+    border-radius: 10px;
+}
+
+.goal-input-wrap:focus-within {
+    border-color: #36ad70;
+    box-shadow: 0 0 0 3px rgba(54,173,112,.1);
+}
+
+.goal-input-wrap > span {
+    color: #168653;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.goal-input-wrap input {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 8px;
+    color: #203b2e;
+    font-size: 12px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+}
+
+.goal-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 13px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
+    background: #168653;
+    border: 1px solid #168653;
+    border-radius: 10px;
+    transition: .2s;
+}
+
+.goal-save-btn:hover {
+    background: #126b43;
+    border-color: #126b43;
+}
+
+/* GOALS EMPTY STATE */
+.goals-empty-state,
+.green-budget-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-column: 1 / -1;
+    padding: 44px 24px;
+    text-align: center;
+    background: #fff;
+    border: 1px dashed #cfe7d6;
+    border-radius: 20px;
+}
+
+.goals-empty-icon,
+.green-budget-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+    margin-bottom: 20px;
+    color: #168653;
+    font-size: 43px;
+    background: #eaf8ef;
+    border: 1px solid #d9f0e1;
+    border-radius: 26px;
+}
+
+.goals-empty-state h3,
+.green-budget-empty h3 {
+    margin: 10px 0;
+    color: #203b2e;
+    font-size: 22px;
+    font-weight: 850;
+}
+
+.goals-empty-state p,
+.green-budget-empty p {
+    max-width: 440px;
+    margin: 0 0 21px;
+    color: #819487;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.goals-empty-state .green-primary-btn,
+.green-budget-empty .green-primary-btn {
+    color: #fff;
+    background: #168653;
+    border-color: #168653;
+}
+
+.goals-empty-state .green-primary-btn:hover,
+.green-budget-empty .green-primary-btn:hover {
+    background: #126b43;
+}
+
+/* ==========================================
+   BUDGETS
+========================================== */
+
+.green-budget-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+    margin-bottom: 34px;
+}
+
+.green-budget-stat {
+    min-width: 0;
+    padding: 21px;
+    background: #fff;
+    border: 1px solid var(--bb-border);
+    border-radius: 17px;
+    box-shadow: 0 4px 18px rgba(25,80,48,.035);
+    transition: .2s;
+}
+
+.green-budget-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(25,80,48,.07);
+}
+
+.green-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    height: 43px;
+    margin-bottom: 16px;
+    font-size: 20px;
+    border-radius: 13px;
+}
+
+.stat-icon-emerald {
+    color: #168653;
+    background: #e7f7ed;
+}
+
+.stat-icon-mint {
+    color: #198b68;
+    background: #e5f8f1;
+}
+
+.stat-icon-lime {
+    color: #568f27;
+    background: #eff8e3;
+}
+
+.green-stat-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #819487;
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.green-budget-stat > strong {
+    display: block;
+    margin-bottom: 12px;
+    color: #203b2e;
+    font-size: clamp(17px, 2vw, 22px);
+    font-weight: 850;
+    overflow-wrap: anywhere;
+}
+
+.green-budget-stat > small {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #829587;
+    font-size: 10px;
+}
+
+.green-budget-stat > small i {
+    color: #168653;
+}
+
+.budget-list-heading {
+    margin-top: 4px;
+}
+
+.green-count-pill {
+    padding: 8px 12px;
+    color: #168653;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
+    background: #eaf8ef;
+    border: 1px solid #d7efdf;
+    border-radius: 9px;
+}
+
+/* BUDGETS — MATCH THE SAVINGS GOALS DESIGN */
+.green-budget-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 19px;
+    width: 100%;
+}
+
+.green-budget-card {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
+    margin: 0;
+    padding: 23px;
+    box-sizing: border-box;
+
+    background: #fff;
+    border: 1px solid var(--bb-border);
+    border-radius: 19px;
+    box-shadow: 0 5px 20px rgba(25, 80, 48, 0.035);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.green-budget-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(25, 80, 48, 0.08);
+}
+
+.green-budget-card-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.green-budget-card-title {
+    flex: 1;
+    min-width: 0;
+}
+
+.green-budget-card-title h3 {
+    margin: 0 0 6px;
+    color: var(--bb-text);
+    font-size: 15px;
+    font-weight: 850;
+    overflow-wrap: anywhere;
+}
+
+.budget-expense-form {
+    padding-top: 17px;
+    margin-top: 4px;
+    border-top: 1px solid #edf3ee;
+}
+
+.budget-expense-form .goal-save-btn {
+    color: #fff;
+    background: var(--bb-green);
+    border-color: var(--bb-green);
+}
+
+.budget-expense-form .goal-save-btn:hover {
+    background: var(--bb-dark);
+    border-color: var(--bb-dark);
+}
+
+.budget-expense-form button {
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .green-budget-card {
+        padding: 16px;
+        border-radius: 15px;
+    }
+
+    .green-budget-card-header {
+        gap: 8px;
+    }
+
+    .green-budget-amount-panel {
+        gap: 9px;
+        padding: 12px;
+    }
+
+    .green-budget-details {
+        grid-template-columns: 1fr;
+    }
+
+    .budget-expense-form .goal-input-row {
+        flex-direction: column;
+    }
+
+    .budget-expense-form .goal-save-btn {
+        width: 100%;
+    }
+}
+
+.green-budget-card-title > span {
+    display: block;
+    color: #89998e;
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+.green-budget-card-title > span i {
+    margin-right: 3px;
+    color: #168653;
+}
+
+.green-budget-actions,
+.green-budget-actions form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+}
+.green-budget-amount-panel strong {
+    display: block;
+    color: #203b2e;
+    font-size: clamp(16px, 2vw, 21px);
+    font-weight: 850;
+    overflow-wrap: anywhere;
+}
+
+.green-budget-amount-panel .green-spent-amount {
+    color: #168653;
+}
+
+.green-budget-progress-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 9px;
+    color: #778c7d;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.green-budget-progress-heading i {
+    margin-right: 4px;
+    color: #168653;
+}
+
+.green-budget-progress-heading strong {
+    color: #168653;
+    font-size: 12px;
+    font-weight: 850;
+}
+
+.green-budget-progress-heading strong.green-over-text {
+    color: #d43f4b;
+}
+
+.green-budget-progress-track {
+    width: 100%;
+    height: 9px;
+    overflow: hidden;
+    background: #e8f1ea;
+    border-radius: 30px;
+}
+
+.green-budget-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #168653, #4ac985);
+    border-radius: 30px;
+    transition: width .4s ease;
+}
+
+.green-budget-progress-fill.green-progress-warning {
+    background: linear-gradient(90deg, #e9a22c, #f6cb68);
+}
+
+.green-budget-progress-fill.green-progress-over {
+    background: linear-gradient(90deg, #d9414e, #f58a88);
+}
+
+.green-budget-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 14px;
+}
+
+.green-budget-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 9px;
+    font-size: 9px;
+    font-weight: 800;
+    border-radius: 8px;
+}
+
+.status-budget-good {
+    color: #137647;
+    background: #e8f8ee;
+}
+
+.status-budget-warning {
+    color: #98620a;
+    background: #fff5df;
+}
+
+.status-budget-over {
+    color: #c63342;
+    background: #fff0f1;
+}
+
+.green-budget-remaining {
+    color: #788c7e;
+    font-size: 10px;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.green-budget-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px 0;
+    margin-top: 17px;
+    border-top: 1px solid #edf3ee;
+}
+
+.green-budget-details > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 0;
+}
+
+.green-budget-details > div > i {
+    padding-top: 2px;
+    color: #168653;
+    font-size: 13px;
+}
+
+.green-budget-details > div > span {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.green-budget-details small {
+    color: #89998e;
+    font-size: 9px;
+}
+
+.green-budget-details strong {
+    color: #3c5947;
+    font-size: 10px;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.green-budget-expense-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    color: #168653;
+    font-size: 10px;
+    font-weight: 850;
+    background: #eaf8ef;
+    border: 1px solid #d8efdf;
+    border-radius: 10px;
+    transition: .2s;
+}
+
+.green-budget-expense-btn > i:last-child {
+    margin-left: auto;
+}
+
+.green-budget-expense-btn:hover {
+    color: #fff;
+    background: #168653;
+    border-color: #168653;
+}
+
+.green-budget-empty {
+    margin-bottom: 5px;
+}
+
+/* SHARED GREEN TIP */
+.green-tip-banner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 21px 23px;
+    margin-top: 29px;
+    overflow: hidden;
+    background: linear-gradient(110deg, #eaf8ef, #f5fcf7);
+    border: 1px solid #d9efdf;
+    border-radius: 16px;
+}
+
+.green-tip-icon {
+    display: flex;
+    flex: 0 0 44px;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: #b98110;
+    font-size: 20px;
+    background: #fff4d7;
+    border-radius: 13px;
+}
+
+.green-tip-banner > div:nth-child(2) {
+    min-width: 0;
+}
+
+.green-tip-banner h3 {
+    margin: 0 0 6px;
+    color: #245239;
+    font-size: 12px;
+    font-weight: 850;
+}
+
+.green-tip-banner p {
+    max-width: 750px;
+    margin: 0;
+    color: #738b7b;
+    font-size: 10px;
+    line-height: 1.9;
+}
+
+.green-tip-decoration {
+    margin-left: auto;
+    color: #b9dfc5;
+    font-size: 38px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+    .green-hero-art {
+        flex-basis: 170px;
+        transform: scale(.9);
+    }
+.goals-grid {
+    grid-template-columns: 1fr;
+}
+
+.green-budget-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+}
+
+@media (max-width: 700px) {
+    .green-budget-grid {
+    grid-template-columns: 1fr;
+}
+    .green-goals-page,
+    .green-budgets-page {
+        padding: 14px;
+    }
+
+    .green-page-hero {
+        min-height: auto;
+        padding: 27px 22px;
+        border-radius: 19px;
+    }
+
+    .green-hero-art {
+        display: none;
+    }
+
+    .green-hero-copy h1 {
+        font-size: 30px;
+    }
+
+    .green-budget-summary {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .green-budget-stat {
+        padding: 17px;
+    }
+
+    .green-section-heading {
+        align-items: flex-start;
+    }
+
+    .green-section-heading h2 {
+        font-size: 19px;
+    }
+
+    .green-tip-decoration {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .green-page-hero {
+        padding: 23px 18px;
+    }
+
+    .green-hero-copy h1 {
+        font-size: 27px;
+    }
+
+    .green-section-heading {
+        flex-direction: column;
+    }
+
+    .green-outline-btn {
+        width: 100%;
+    }
+
+    .green-goal-card,
+    .green-budget-card {
+        padding: 16px;
+        border-radius: 15px;
+    }
+
+    .goal-card-top,
+    .green-budget-card-header {
+        gap: 8px;
+    }
+
+    .goal-card-icon,
+    .green-budget-category-icon {
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .goal-actions,
+    .green-budget-actions {
+        gap: 3px;
+    }
+
+    .green-icon-btn {
+        width: 29px;
+        height: 29px;
+    }
+
+    .goal-input-row {
+        flex-direction: column;
+    }
+
+    .goal-save-btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .goal-money-panel,
+    .green-budget-amount-panel {
+        gap: 9px;
+        padding: 12px;
+    }
+
+    .green-budget-details {
+        grid-template-columns: 1fr;
+    }
+
+    .green-budget-status-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .green-tip-banner {
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    .green-tip-icon {
+        flex-basis: 37px;
+        width: 37px;
+        height: 37px;
+    }
+}
+
+/* ==========================================
+   BUDGET BUDDY - SIMPLE CREATIVE TRANSACTIONS
+========================================== */
+
+.transactions-page {
+    padding: 24px;
+    color: #1c6d46;
+    border: 1px solid #e7f0e9;
+    border-radius: 22px;
+}
+
+/* Header */
+.tx-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 28px;
+    margin-bottom: 24px;
+    border-radius: 19px;
+    box-shadow: 0 9px 25px rgba(22, 134, 83, .12);
+}
+
+.tx-header-copy {
+    min-width: 0;
+}
+
+.tx-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 12px;
+    color: #165e33;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 1.4px;
+}
+
+.tx-header-copy h2 {
+    margin: 0 0 9px;
+    color: #0c0808;
+    font-size: clamp(25px, 3vw, 34px);
+    font-weight: 850;
+    letter-spacing: -.8px;
+}
+
+.tx-header-copy p {
+    max-width: 480px;
+    margin: 0;
+    color: rgba(178, 172, 172, 0.82);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.tx-add-btn {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 17px;
+    color: #126b43;
+    font-size: 11px;
+    font-weight: 850;
+    background: #fff;
+    border: 1px solid rgba(255, 255, 255, .65);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .07);
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.tx-add-btn:hover {
+    color: #105c3b;
+    background: #eaf8ef;
+    transform: translateY(-2px);
+}
+
+/* Transaction list container */
+.tx-list-card {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e5eee7;
+    border-radius: 17px;
+    box-shadow: 0 5px 20px rgba(25, 80, 48, .035);
+}
+
+.tx-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 23px 24px;
+    border-bottom: 1px solid #edf3ee;
+}
+
+.tx-list-heading h3 {
+    margin: 0 0 6px;
+    color: #203b2e;
+    font-size: 17px;
+    font-weight: 850;
+}
+
+.tx-list-heading p {
+    margin: 0;
+    color: #85968a;
+    font-size: 11px;
+}
+
+.tx-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 11px;
+    color: #168653;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
+    background: #eaf8ef;
+    border: 1px solid #d9f0e1;
+    border-radius: 9px;
+}
+
+/* Table */
+.tx-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.tx-table thead th {
+    padding: 14px 16px;
+    color: #829487;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: .8px;
+    white-space: nowrap;
+    background: #f8fbf8;
+    border-bottom: 1px solid #eaf1eb;
+}
+
+.tx-table thead th:first-child,
+.tx-table tbody td:first-child {
+    padding-left: 24px;
+}
+
+.tx-table thead th:last-child,
+.tx-table tbody td:last-child {
+    padding-right: 24px;
+}
+
+.tx-table tbody td {
+    padding: 16px;
+    color: #63796a;
+    font-size: 11px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f4f0;
+}
+
+.tx-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.tx-table tbody tr {
+    transition: background .18s ease;
+}
+
+.tx-table tbody tr:hover:not(:has(.tx-empty-state)) {
+    background: #f8fcf9;
+}
+
+/* Transaction description */
+.tx-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 165px;
+}
+
+.tx-item-icon {
+    display: flex;
+    flex: 0 0 39px;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    font-size: 17px;
+    border-radius: 12px;
+}
+
+.tx-income-icon {
+    color: #168653;
+    background: #e7f7ed;
+}
+
+.tx-expense-icon {
+    color: #d45b63;
+    background: #fff0f0;
+}
+
+.tx-name-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.tx-name-details strong {
+    color: #284433;
+    font-size: 11px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.tx-name-details > span {
+    display: block;
+    color: #8a9b8f;
+    font-size: 9px;
+    overflow-wrap: anywhere;
+}
+
+.tx-name-details > span i {
+    margin-right: 3px;
+    color: #168653;
+}
+
+/* Category and date */
+.tx-category-pill {
+    display: inline-block;
+    padding: 7px 9px;
+    color: #4e7059;
+    font-size: 9px;
+    font-weight: 750;
+    background: #f0f7f1;
+    border: 1px solid #e5efe7;
+    border-radius: 7px;
+}
+
+.tx-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #7d9082;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.tx-date i {
+    color: #168653;
+}
+
+/* Income and expense badges */
+.tx-type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 9px;
+    font-size: 9px;
+    font-weight: 850;
+    border-radius: 7px;
+    white-space: nowrap;
+}
+
+.tx-income-badge {
+    color: #168653;
+    background: #e8f8ee;
+}
+
+.tx-expense-badge {
+    color: #c84c56;
+    background: #fff0f1;
+}
+
+.tx-status-dot {
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+}
+
+/* Amount */
+.tx-amount {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 850;
+    white-space: nowrap;
+}
+
+.tx-amount-income {
+    color: #168653;
+}
+
+.tx-amount-expense {
+    color: #d34d58;
+}
+
+/* Delete action */
+.tx-delete-form {
+    display: inline-flex;
+    margin: 0;
+}
+
+.tx-delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    color: #8b9c90;
+    font-size: 13px;
+    background: #f6f9f6;
+    border: 1px solid #e7eee8;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.tx-delete-btn:hover {
+    color: #d33f4b;
+    background: #fff0f1;
+    border-color: #ffdadd;
+}
+
+/* Empty state */
+.tx-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 45px 20px;
+    text-align: center;
+}
+
+.tx-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75px;
+    height: 75px;
+    margin-bottom: 16px;
+    color: #168653;
+    font-size: 34px;
+    background: #eaf8ef;
+    border-radius: 23px;
+}
+
+.tx-empty-state h3 {
+    margin: 0 0 8px;
+    color: #203b2e;
+    font-size: 19px;
+    font-weight: 850;
+}
+
+.tx-empty-state p {
+    max-width: 380px;
+    margin: 0 0 18px;
+    color: #829487;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.tx-empty-state .tx-add-btn {
+    color: #fff;
+    background: #168653;
+    border-color: #168653;
+}
+
+.tx-empty-state .tx-add-btn:hover {
+    background: #126b43;
+}
+
+/* Footer */
+.tx-list-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    color: #819487;
+    font-size: 10px;
+    background: #f9fcf9;
+    border-top: 1px solid #edf3ee;
+}
+
+.tx-list-footer i {
+    color: #168653;
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .transactions-page {
+        padding: 16px;
+    }
+
+    .tx-page-header {
+        padding: 23px;
+    }
+
+    .tx-table thead th,
+    .tx-table tbody td {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .tx-table thead th:first-child,
+    .tx-table tbody td:first-child {
+        padding-left: 16px;
+    }
+
+    .tx-table thead th:last-child,
+    .tx-table tbody td:last-child {
+        padding-right: 16px;
+    }
+}
+
+@media (max-width: 650px) {
+    .tx-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .tx-add-btn {
+        width: 100%;
+    }
+
+    .tx-list-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 19px;
+    }
+
+    .tx-table {
+        min-width: 760px;
+    }
+
+    .tx-list-footer {
+        padding: 13px 17px;
+    }
+}
+
+@media (max-width: 400px) {
+    .transactions-page {
+        padding: 10px;
+    }
+
+    .tx-page-header {
+        padding: 20px 17px;
+    }
+
+    .tx-header-copy h2 {
+        font-size: 26px;
+    }
+}
+/* Keep Budget Limit and Amount Spent on one line */
+#budgets-section .green-budget-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+#budgets-section .green-budget-details > div {
+    flex: 1;
+    min-width: 0;
+}
+
+#budgets-section .green-budget-details strong,
+#budgets-section .green-budget-details p {
+    white-space: nowrap;
+}
+
+#budgets-section .green-budget-details p {
+    margin-bottom: 0;
+}
+
+/* =====================================
+   BUDGETS PAGE - CLEAN MODERN LAYOUT
+===================================== */
+
+#budgets-section {
+    width: 100%;
+    min-width: 0;
+}
+
+#budgets-section .budget-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+#budgets-section .green-count-pill {
+    flex-shrink: 0;
+}
+
+#budgets-section .green-budget-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    align-items: stretch;
+}
+
+#budgets-section .green-budget-card {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid #e5eee7;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(24, 66, 43, 0.045);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+#budgets-section .green-budget-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(24, 66, 43, 0.085);
+}
+
+/* Card header */
+
+#budgets-section .green-budget-card-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    margin-bottom: 22px;
+}
+
+#budgets-section .green-budget-category-icon {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 15px;
+    background: #eaf6ee;
+    color: #198754;
+    font-size: 22px;
+}
+
+#budgets-section .green-budget-card-title {
+    flex: 1;
+    min-width: 0;
+}
+
+#budgets-section .green-budget-card-title h3 {
+    overflow-wrap: anywhere;
+    margin: 0 0 6px;
+    color: #173e2c;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+#budgets-section .green-budget-card-title > span {
+    display: block;
+    color: #829087;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+#budgets-section .green-budget-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+#budgets-section .green-budget-actions form {
+    margin: 0;
+}
+
+#budgets-section .green-icon-btn {
+    display: grid;
+    width: 35px;
+    height: 35px;
+    place-items: center;
+    border: 1px solid #e5eee7;
+    border-radius: 10px;
+    background: #fff;
+    color: #52705e;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#budgets-section .green-icon-btn:hover {
+    background: #eaf6ee;
+}
+
+#budgets-section .green-delete-btn:hover {
+    border-color: #f3d0d0;
+    background: #fff0f0;
+    color: #c03939;
+}
+
+/* Budget limit and spending: same line */
+
+#budgets-section .green-budget-amount-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 23px;
+    padding: 18px;
+    border: 1px solid #e5f0e8;
+    border-radius: 15px;
+    background: #f7fbf8;
+}
+
+#budgets-section .green-amount-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    min-width: 0;
+}
+
+#budgets-section .green-amount-item > span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #718177;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+#budgets-section .green-amount-item > span i {
+    color: #198754;
+}
+
+#budgets-section .green-amount-item > strong {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    color: #173e2c;
+    font-size: clamp(17px, 2vw, 22px);
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+#budgets-section .green-amount-item > strong.green-spent-amount {
+    color: #198754;
+}
+
+#budgets-section .green-amount-divider {
+    width: 1px;
+    height: 43px;
+    background: #dce9df;
+}
+
+/* Progress */
+
+#budgets-section .green-budget-progress-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+    color: #53675a;
+    font-size: 12px;
+}
+
+#budgets-section .green-budget-progress-heading > span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+#budgets-section .green-budget-progress-heading strong {
+    color: #198754;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+#budgets-section .green-budget-progress-heading strong.green-over-text {
+    color: #d94848;
+}
+
+#budgets-section .green-budget-progress-track {
+    width: 100%;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: #eaf0eb;
+}
+
+#budgets-section .green-budget-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #35a66a, #198754);
+    transition: width 0.3s ease;
+}
+
+#budgets-section .green-budget-progress-fill.green-progress-warning {
+    background: #e6a23c;
+}
+
+#budgets-section .green-budget-progress-fill.green-progress-over {
+    background: #dc5353;
+}
+
+/* Status */
+
+#budgets-section .green-budget-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#budgets-section .green-budget-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+#budgets-section .status-budget-good {
+    color: #198754;
+}
+
+#budgets-section .status-budget-warning {
+    color: #b7791f;
+}
+
+#budgets-section .status-budget-over {
+    color: #d94848;
+}
+
+#budgets-section .green-budget-remaining {
+    color: #718177;
+    font-size: 11px;
+}
+
+/* Budget details */
+
+#budgets-section .green-budget-details {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+    padding-top: 17px;
+    border-top: 1px solid #edf1ee;
+}
+
+#budgets-section .green-budget-details > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    min-width: 0;
+}
+
+#budgets-section .green-budget-details > div > i {
+    margin-top: 2px;
+    color: #198754;
+    font-size: 15px;
+}
+
+#budgets-section .green-budget-details > div > span {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+#budgets-section .green-budget-details small {
+    color: #89968d;
+    font-size: 10px;
+}
+
+#budgets-section .green-budget-details strong {
+    overflow-wrap: anywhere;
+    color: #344a3b;
+    font-size: 11px;
+}
+
+/* Add expense */
+
+#budgets-section .budget-expense-form {
+    margin-top: 19px;
+    padding-top: 17px;
+    border-top: 1px solid #edf1ee;
+}
+
+#budgets-section .budget-expense-form .goal-input-row {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+
+#budgets-section .budget-expense-form .goal-input-wrap {
+    flex: 1;
+    min-width: 0;
+}
+
+#budgets-section .budget-expense-form .goal-input-wrap input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+#budgets-section .budget-expense-form .goal-save-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* Empty state and tip */
+
+#budgets-section .green-budget-empty {
+    padding: 45px 24px;
+    border: 1px dashed #cddfd1;
+    border-radius: 20px;
+    background: #f8fbf8;
+    text-align: center;
+}
+
+#budgets-section .green-tip-banner {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-top: 25px;
+    padding: 22px;
+    overflow: hidden;
+    border: 1px solid #f0e5c7;
+    border-radius: 17px;
+    background: #fffcf4;
+}
+
+#budgets-section .green-tip-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 13px;
+    background: #fff0c2;
+    color: #a47715;
+    font-size: 19px;
+}
+
+#budgets-section .green-tip-banner h3 {
+    margin: 0 0 7px;
+    color: #73581b;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+#budgets-section .green-tip-banner p {
+    margin: 0;
+    color: #8b784d;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+#budgets-section .green-tip-decoration {
+    margin-left: auto;
+    color: #e3c878;
+    font-size: 25px;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+    #budgets-section .green-budget-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    #budgets-section .green-budget-card {
+        padding: 16px;
+    }
+
+    #budgets-section .green-budget-card-header {
+        gap: 9px;
+    }
+
+    #budgets-section .green-budget-category-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 19px;
+    }
+
+    #budgets-section .green-budget-actions {
+        gap: 3px;
+    }
+
+    #budgets-section .green-icon-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    #budgets-section .green-budget-amount-panel {
+        gap: 10px;
+        padding: 14px 11px;
+    }
+
+    #budgets-section .green-amount-item > span {
+        gap: 4px;
+        font-size: 10px;
+    }
+
+    #budgets-section .green-amount-item > strong {
+        font-size: 17px;
+    }
+
+    #budgets-section .green-budget-details {
+        gap: 10px;
+    }
+
+    #budgets-section .budget-expense-form .goal-input-row {
+        flex-direction: column;
+    }
+
+    #budgets-section .budget-expense-form .goal-save-btn {
+        width: 100%;
+    }
+}
+#budgets-section .budget-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+#budgets-section .budget-list-heading > .green-primary-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    #budgets-section .budget-list-heading {
+        flex-wrap: wrap;
+    }
+}
+#goals-section .green-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+#goals-section .green-section-heading > .green-primary-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    #goals-section .green-section-heading {
+        flex-wrap: wrap;
+    }
+}
+#transactions-section .green-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+#transactions-section .green-section-heading > .green-primary-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    #transactions-section .green-section-heading {
+        flex-wrap: wrap;
+    }
+}
+
+/* ==================================
+   ACCOUNT PAGE - MINIMAL DESIGN
+================================== */
+
+#account-section {
+    color: #293b2f;
+}
+
+/* Header */
+#account-section .account-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 5px 0 24px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#account-section .account-label {
+    color: #658a6c;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+#account-section .account-header h2 {
+    margin: 7px 0 5px;
+    color: #293b2f;
+    font-size: 28px;
+    font-weight: 750;
+    letter-spacing: -0.7px;
+}
+
+#account-section .account-header p {
+    margin: 0;
+    color: #89928b;
+    font-size: 13px;
+}
+
+#account-section .account-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border: 1px solid #e4ebe4;
+    border-radius: 14px;
+    background: #f3f7f2;
+    color: #54805c;
+    font-size: 21px;
+}
+
+/* Profile overview */
+#account-section .account-overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 25px;
+    border: 1px solid #e5ece5;
+    border-radius: 16px;
+    background: #f7faf6;
+}
+
+#account-section .account-profile {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    min-width: 0;
+}
+
+#account-section .account-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+    border: 4px solid #ffffff;
+    border-radius: 20px;
+    background: #dfecdf;
+    color: #4e8058;
+    box-shadow: 0 2px 8px rgba(41, 75, 46, 0.06);
+    font-size: 32px;
+}
+
+#account-section .account-identity {
+    min-width: 0;
+}
+
+#account-section .account-welcome {
+    color: #7c957f;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+#account-section .account-identity h3 {
+    margin: 5px 0 7px;
+    color: #2a3e2f;
+    font-size: 21px;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+#account-section .account-identity p {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin: 0;
+    color: #7e8a80;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+#account-section .account-identity p i {
+    margin-top: 2px;
+    color: #77917a;
+}
+
+#account-section .account-member-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    border: 1px solid #dce9dc;
+    border-radius: 30px;
+    background: #ffffff;
+    color: #58815e;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+#account-section .account-member-tag i {
+    font-size: 13px;
+}
+
+/* Details section */
+#account-section .account-details-section {
+    margin-top: 28px;
+}
+
+#account-section .account-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+#account-section .account-section-title h3 {
+    margin: 0;
+    color: #304234;
+    font-size: 16px;
+    font-weight: 750;
+}
+
+#account-section .account-section-title p {
+    margin: 5px 0 0;
+    color: #8a948b;
+    font-size: 12px;
+}
+
+#account-section .account-section-title > i {
+    color: #9aac9b;
+    font-size: 20px;
+}
+
+/* Detail cards */
+#account-section .account-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+#account-section .account-detail-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    padding: 19px;
+    border: 1px solid #e9eee9;
+    border-radius: 13px;
+    background: #ffffff;
+    transition: border-color 0.2s ease,
+                transform 0.2s ease;
+}
+
+#account-section .account-detail-card:hover {
+    border-color: #cddfce;
+    transform: translateY(-2px);
+}
+
+#account-section .account-detail-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #f0f5ef;
+    color: #5d8563;
+    font-size: 18px;
+}
+
+#account-section .account-detail-content {
+    min-width: 0;
+}
+
+#account-section .account-detail-content span {
+    display: block;
+    margin-bottom: 6px;
+    color: #89938a;
+    font-size: 11px;
+}
+
+#account-section .account-detail-content strong {
+    display: block;
+    color: #35483a;
+    font-size: 13px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+/* Bottom message */
+#account-section .account-footer-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    margin-top: 24px;
+    padding: 18px;
+    border-top: 1px solid #e9eee9;
+}
+
+#account-section .account-footer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: #f0f5ed;
+    color: #668866;
+    font-size: 17px;
+}
+
+#account-section .account-footer-note strong {
+    display: block;
+    margin: 1px 0 5px;
+    color: #455a48;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+#account-section .account-footer-note p {
+    margin: 0;
+    color: #879187;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    #account-section .account-header h2 {
+        font-size: 24px;
+    }
+
+    #account-section .account-overview {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    #account-section .account-profile {
+        align-items: flex-start;
+        gap: 13px;
+    }
+
+    #account-section .account-avatar {
+        width: 55px;
+        height: 55px;
+        border-radius: 16px;
+        font-size: 26px;
+    }
+
+    #account-section .account-identity h3 {
+        font-size: 18px;
+    }
+
+    #account-section .account-details-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #account-section .account-detail-card {
+        padding: 15px;
+    }
+}
+
+/* TRANSACTIONS HEADER — clean, no card background */
+#transactions-section .tx-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    margin: 0 0 28px;
+    padding: 0 !important;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Header text container */
+#transactions-section .tx-header-copy {
+    flex: 1;
+    min-width: 0;
+    padding: 0 !important;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Small uppercase label */
+#transactions-section .tx-eyebrow {
+    display: inline-block;
+    margin-bottom: 9px;
+    color: #168653;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+/* Main heading */
+#transactions-section .tx-header-copy h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px;
+    padding: 0;
+    color: #203b2e;
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Heading icon */
+#transactions-section .tx-header-copy h2 i {
+    color: #168653;
+    font-size: 22px;
+}
+
+/* Description */
+#transactions-section .tx-header-copy p {
+    margin: 0;
+    padding: 0;
+    color: #7b8b80;
+    font-size: 12px;
+    line-height: 1;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Add Transaction button */
+#transactions-section .tx-page-header > .green-primary-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+    #transactions-section .tx-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    #transactions-section .tx-header-copy h2 {
+        font-size: 24px;
+    }
+}
+/* Transactions header spacing */
+#transactions-section .tx-page-header {
+    margin-top: 10px !important;
+    margin-left: 3px !important;
+    width: calc(100% - 20px);
+}
+
+/* Add a little space on the left of the header text */
+#transactions-section .tx-header-copy {
+    padding-left: 5px !important;
+}
+
+/* Remove the icon before YOUR FINANCIAL ACTIVITY */
+#transactions-section .tx-eyebrow i {
+    display: none !important;
+}
+/* ACCOUNT HEADER — match other page headers */
+#account-section .account-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px 0 28px;
+    margin-left: -10px;
+    padding: 0 0 0 20px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#account-section .account-header-copy {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#account-section .account-eyebrow {
+    display: inline-block;
+    margin-bottom: 9px;
+    color: #168653;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+#account-section .account-header-copy h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px;
+    padding: 0;
+    color: #203b2e;
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+#account-section .account-header-copy h2 i {
+    color: #168653;
+    font-size: 22px;
+}
+
+#account-section .account-header-copy p {
+    margin: 0;
+    color: #7b8b80;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    #account-section .account-header {
+        padding-left: 10px;
+    }
+
+    #account-section .account-header-copy h2 {
+        font-size: 24px;
+    }
+}
+/* ACCOUNT LOGOUT */
+#account-section .account-logout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 30px 0 20px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e5ece7;
+    border-radius: 14px;
+}
+
+#account-section .account-logout-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#account-section .account-logout-info > i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: #c0392b;
+    background: #fff0ee;
+    border-radius: 12px;
+    font-size: 21px;
+}
+
+#account-section .account-logout-info h3 {
+    margin: 0 0 5px;
+    color: #203b2e;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#account-section .account-logout-info p {
+    margin: 0;
+    color: #7b8b80;
+    font-size: 13px;
+}
+
+#account-section .account-logout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 18px;
+    color: #ffffff;
+    background: #c0392b;
+    border: none;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#account-section .account-logout-btn:hover {
+    background: #a93226;
+}
+
+@media (max-width: 600px) {
+    #account-section .account-logout {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
     </style>
+    
 </head>
 
 <body>
@@ -491,22 +4018,29 @@
         <i class="bi bi-wallet2"></i> Budget Buddy
     </div>
 
-    <div class="nav-label">MAIN MENU</div>
+<div class="nav-label">MAIN MENU</div>
 
-    <nav>
-        <a href="#dashboard" class="side-link active">
-            <i class="bi bi-grid-1x2"></i> Dashboard
-        </a>
-        <a href="#transactions" class="side-link">
-            <i class="bi bi-arrow-left-right"></i> Transactions
-        </a>
-        <a href="#budgets" class="side-link">
-            <i class="bi bi-pie-chart"></i> Budgets
-        </a>
-        <a href="#goals" class="side-link">
-            <i class="bi bi-bullseye"></i> Savings Goals
-        </a>
-    </nav>
+<nav>
+    <a href="#dashboard" class="side-link active">
+        <i class="bi bi-grid-1x2"></i> Dashboard
+    </a>
+
+    <a href="#transactions" class="side-link">
+        <i class="bi bi-arrow-left-right"></i> Transactions
+    </a>
+
+    <a href="#budgets" class="side-link">
+        <i class="bi bi-pie-chart"></i> Budgets
+    </a>
+
+    <a href="#goals" class="side-link">
+        <i class="bi bi-bullseye"></i> Savings Goals
+    </a>
+
+    <a href="#account" class="side-link">
+        <i class="bi bi-person-circle"></i> Account
+    </a>
+</nav>
 
     <div class="sidebar-bottom">
         <i class="bi bi-shield-check text-success fs-5"></i>
@@ -516,25 +4050,6 @@
 </aside>
 
 <main class="main">
-    <section id="dashboard-section" class="page-section active">
-
-    <header class="topbar">
-        <div>
-            <h1 class="page-title">Dashboard</h1>
-            <div class="subtitle">
-                Here's your financial overview.
-                {% now "F d, Y" %}
-            </div>
-        </div>
-
-        <div class="profile">
-            <div class="avatar"><i class="bi bi-person"></i></div>
-            <div class="profile-info">
-                <div class="profile-name">My Account</div>
-                <div class="profile-role">Personal Finance</div>
-            </div>
-        </div>
-    </header>
 
     {% if messages %}
         {% for message in messages %}
@@ -547,175 +4062,305 @@
         {% endfor %}
     {% endif %}
 
-    <section class="welcome">
+
+<!-- DASHBOARD -->
+<section id="dashboard-section" class="page-section active">
+
+    <!-- Dashboard Header -->
+    <header class="topbar">
         <div>
-            <h2>Welcome to Budget Buddy! 👋</h2>
-            <p>Small steps today, better finances tomorrow.</p>
-            <button type="button"
-                    class="btn btn-light mt-3 fw-bold"
-                    style="border-radius:9px;color:#176943;font-size:12px;"
-                    onclick="openAddModal()">
-                <i class="bi bi-plus-lg me-1"></i> Add Transaction
-            </button>
+            <span class="dashboard-eyebrow">
+                <i class="bi bi-stars"></i> YOUR FINANCIAL SPACE
+            </span>
+            <h1 class="page-title mt-2">Your Dashboard</h1>
+            <div class="subtitle">
+                A clearer view of your money, one day at a time.
+                {% now "F d, Y" %}
+            </div>
         </div>
-        <i class="bi bi-graph-up-arrow welcome-icon"></i>
+    </header>
+
+    <!-- Welcome Banner -->
+    <section class="creative-welcome">
+        <div class="welcome-content">
+            <div class="welcome-tag">
+                <i class="bi bi-sun"></i> YOUR MONEY, YOUR FUTURE
+            </div>
+
+            <h2>
+                Make every peso<br>
+                <span>count.</span>
+            </h2>
+
+            <p>
+                Welcome back, {{ request.user.username }}!
+                Keep building healthy money habits.
+                Small steps today can create a brighter tomorrow.
+            </p>
+
+            <div class="welcome-actions">
+                <button type="button" class="welcome-primary"
+                        onclick="openAddModal()">
+                        <i class="bi bi-plus-lg"></i> Add Transaction
+                    </button>
+
+          <button type="button" class="welcome-secondary"
+        onclick="showPage('transactions')">
+    <i class="bi bi-receipt"></i> View Transactions
+</button>
+            </div>
+        </div>
+
+        <div class="welcome-art" aria-hidden="true">
+            <div class="art-circle art-circle-one"></div>
+            <div class="art-circle art-circle-two"></div>
+            <div class="art-wallet">
+                <i class="bi bi-wallet2"></i>
+            </div>
+            <div class="art-coin coin-one">₱</div>
+            <div class="art-coin coin-two">
+                <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <div class="art-sparkle sparkle-one">✦</div>
+            <div class="art-sparkle sparkle-two">✧</div>
+        </div>
+
+        <div class="welcome-decoration"></div>
     </section>
 
-    <!-- FINANCIAL SUMMARY -->
-    <section class="stats">
+    <!-- Financial Summary -->
+    <div class="dashboard-section-title">
+        <div>
+            <h3>Your money at a glance</h3>
+            <p>Here is where your finances stand.</p>
+        </div>
+        <span class="live-indicator">
+            <span></span> Financial overview
+        </span>
+    </div>
 
-        <div class="stat-card">
-            <div class="stat-top">
-                <div class="stat-label">Available Balance</div>
-                <div class="stat-icon icon-blue">
+    <section class="creative-stats">
+
+        <div class="creative-stat balance-stat">
+            <div class="creative-stat-header">
+                <div class="creative-stat-icon">
                     <i class="bi bi-wallet2"></i>
                 </div>
+                <span class="stat-chip">BALANCE</span>
             </div>
-            <div class="stat-value">
-                ₱{{ balance|floatformat:2 }}
+
+            <div class="creative-stat-label">Available Balance</div>
+            <div class="creative-stat-value">
+                ₱{{ balance|default:0|floatformat:2 }}
             </div>
-            <div class="stat-note">Total income minus total expenses</div>
+            <div class="creative-stat-footer">
+                <i class="bi bi-info-circle"></i>
+                Income minus expenses
+            </div>
+
+            <div class="stat-decoration">
+                <i class="bi bi-wallet2"></i>
+            </div>
         </div>
 
-        <div class="stat-card">
-            <div class="stat-top">
-                <div class="stat-label">Total Income</div>
-                <div class="stat-icon icon-green">
+        <div class="creative-stat income-stat">
+            <div class="creative-stat-header">
+                <div class="creative-stat-icon">
                     <i class="bi bi-arrow-down-left"></i>
                 </div>
+                <span class="stat-chip">MONEY IN</span>
             </div>
-            <div class="stat-value">
-                ₱{{ income|floatformat:2 }}
+
+            <div class="creative-stat-label">Total Income</div>
+            <div class="creative-stat-value">
+                ₱{{ income|default:0|floatformat:2 }}
             </div>
-            <div class="stat-note">All recorded income</div>
+            <div class="creative-stat-footer">
+                <i class="bi bi-check-circle"></i>
+                All recorded income
+            </div>
+
+            <div class="stat-decoration">
+                <i class="bi bi-graph-up-arrow"></i>
+            </div>
         </div>
 
-        <div class="stat-card">
-            <div class="stat-top">
-                <div class="stat-label">Total Expenses</div>
-                <div class="stat-icon icon-red">
+        <div class="creative-stat expense-stat">
+            <div class="creative-stat-header">
+                <div class="creative-stat-icon">
                     <i class="bi bi-arrow-up-right"></i>
                 </div>
+                <span class="stat-chip">MONEY OUT</span>
             </div>
-            <div class="stat-value">
-                ₱{{ expenses|floatformat:2 }}
+
+            <div class="creative-stat-label">Total Expenses</div>
+            <div class="creative-stat-value">
+                ₱{{ expenses|default:0|floatformat:2 }}
             </div>
-            <div class="stat-note">All recorded expenses</div>
+            <div class="creative-stat-footer">
+                <i class="bi bi-receipt"></i>
+                All recorded expenses
+            </div>
+
+            <div class="stat-decoration">
+                <i class="bi bi-bag-check"></i>
+            </div>
         </div>
 
     </section>
-        </section>
 
-    <!-- TRANSACTIONS -->
-    <section class="panel page-section" id="transactions-section">
+    <!-- Quick Actions -->
+    <section class="quick-actions-panel">
+        <div class="dashboard-section-title">
+            <div>
+                <h3>Quick actions</h3>
+                <p>Everything you need, just one click away.</p>
+            </div>
+        </div>
+
+        <div class="quick-actions-grid">
+            <button type="button" class="quick-action"
+                    onclick="openAddModal()">
+                <span class="quick-action-icon quick-purple">
+                    <i class="bi bi-plus-lg"></i>
+                </span>
+                <span class="quick-action-text">
+                    <strong>New Transaction</strong>
+                    <small>Record money in or out</small>
+                </span>
+                <i class="bi bi-arrow-up-right quick-action-arrow"></i>
+            </button>
+
+            <button type="button" class="quick-action"
+                    onclick="showPage('transactions')">
+                <span class="quick-action-icon quick-blue">
+                    <i class="bi bi-arrow-left-right"></i>
+                </span>
+                <span class="quick-action-text">
+                    <strong>Transactions</strong>
+                    <small>Review your activity</small>
+                </span>
+                <i class="bi bi-arrow-up-right quick-action-arrow"></i>
+            </button>
+
+            <button type="button" class="quick-action"
+                    onclick="showPage('budgets')">
+                <span class="quick-action-icon quick-orange">
+                    <i class="bi bi-pie-chart"></i>
+                </span>
+                <span class="quick-action-text">
+                    <strong>Manage Budgets</strong>
+                    <small>Keep spending on track</small>
+                </span>
+                <i class="bi bi-arrow-up-right quick-action-arrow"></i>
+            </button>
+
+            <button type="button" class="quick-action"
+                    onclick="showPage('goals')">
+                <span class="quick-action-icon quick-green">
+                    <i class="bi bi-bullseye"></i>
+                </span>
+                <span class="quick-action-text">
+                    <strong>Savings Goals</strong>
+                    <small>Build toward your dreams</small>
+                </span>
+                <i class="bi bi-arrow-up-right quick-action-arrow"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Recent Transactions -->
+    <section class="panel creative-transactions">
         <div class="section-heading">
             <div>
-                <h3>Recent Transactions</h3>
-                <p>Add, edit, delete, and plan how you handle your money.</p>
+                <span class="panel-eyebrow">YOUR MONEY ACTIVITY</span>
+                <h3 class="mt-2">Recent Transactions</h3>
+                <p>Your latest income and expenses, all in one place.</p>
             </div>
-            <button class="btn-green" type="button" onclick="openAddModal()">
-                <i class="bi bi-plus-lg me-1"></i> Add New
+
+            <button type="button" class="btn-green"
+                    onclick="showPage('transactions')">
+                View All <i class="bi bi-arrow-right ms-1"></i>
             </button>
         </div>
 
         <div class="table-responsive">
-            <table class="table">
+            <table class="table creative-table">
                 <thead>
                     <tr>
                         <th>TRANSACTION</th>
                         <th>DATE</th>
-                        <th>FUND TYPE</th>
-                        <th>PAYMENT</th>
                         <th>TYPE</th>
-                        <th>AMOUNT</th>
-                        <th>MONEY PLAN</th>
-                        <th>ACTIONS</th>
+                        <th class="text-end">AMOUNT</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                {% for transaction in transactions %}
+                {% for transaction in transactions|slice:":5" %}
                     <tr>
                         <td>
-                            <div class="transaction-name">
-                                {{ transaction.description }}
-                            </div>
-                            <div class="transaction-category">
-                                {{ transaction.category }}
+                            <div class="creative-transaction-info">
+                                <div class="transaction-icon
+                                    {% if transaction.transaction_type|lower == 'income' %}
+                                        transaction-income-icon
+                                    {% else %}
+                                        transaction-expense-icon
+                                    {% endif %}">
+                                    {% if transaction.transaction_type|lower == "income" %}
+                                        <i class="bi bi-arrow-down-left"></i>
+                                    {% else %}
+                                        <i class="bi bi-arrow-up-right"></i>
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    <div class="transaction-name">
+                                        {{ transaction.description }}
+                                    </div>
+                                    <div class="transaction-category">
+                                        {{ transaction.category }}
+                                    </div>
+                                </div>
                             </div>
                         </td>
 
-                        <td>{{ transaction.date|date:"M d, Y" }}</td>
-
                         <td>
-                            <span class="text-secondary">
-                                <i class="bi {% if transaction.fund_type == 'Cash' %}bi-cash{% else %}bi-phone{% endif %} me-1"></i>
-                                {{ transaction.fund_type }}
+                            <span class="transaction-date">
+                                {{ transaction.date|date:"M d, Y" }}
                             </span>
                         </td>
 
-                        <td>{{ transaction.payment_method }}</td>
-
                         <td>
                             {% if transaction.transaction_type|lower == "income" %}
-                                <span class="type-badge income-badge">Income</span>
+                                <span class="creative-type income-type">
+                                    <i class="bi bi-plus-lg"></i> Income
+                                </span>
                             {% else %}
-                                <span class="type-badge expense-badge">Expense</span>
+                                <span class="creative-type expense-type">
+                                    <i class="bi bi-dash-circle"></i> Expense
+                                </span>
                             {% endif %}
                         </td>
 
-                        <td class="{% if transaction.transaction_type|lower == 'income' %}amount-income{% else %}amount-expense{% endif %}">
-                            {% if transaction.transaction_type|lower == "income" %}+{% else %}-{% endif %}₱{{ transaction.amount|floatformat:2 }}
-                        </td>
-
-                        <td>
-                            <div class="fw-semibold">
-                                {{ transaction.allocation|default:"Needs" }}
-                            </div>
-                            <div class="transaction-category">
-                                {{ transaction.priority|default:"Medium" }} priority
-                            </div>
-                            {% if transaction.money_plan %}
-                                <button type="button"
-                                        class="btn btn-link btn-sm p-0 text-success"
-                                        onclick="showMoneyPlan(this)"
-                                        data-plan="{{ transaction.money_plan }}">
-                                    View plan
-                                </button>
-                            {% else %}
-                                <span class="text-secondary small">No notes</span>
-                            {% endif %}
-                        </td>
-
-                        <td>
-
-                            </button>
-
-                            <form method="post" class="d-inline"
-                                  onsubmit="return confirm('Delete this transaction?');">
-                                {% csrf_token %}
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="transaction_id"
-                                       value="{{ transaction.pk }}">
-                                <button class="action-btn delete-btn"
-                                        type="submit" title="Delete transaction">
-                                    <i class="bi bi-trash3"></i>
-                                </button>
-                            </form>
+                        <td class="text-end">
+                            <span class="{% if transaction.transaction_type|lower == 'income' %}amount-income{% else %}amount-expense{% endif %}">
+                                {% if transaction.transaction_type|lower == "income" %}+{% else %}-{% endif %}₱{{ transaction.amount|floatformat:2 }}
+                            </span>
                         </td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="8">
+                        <td colspan="4">
                             <div class="empty">
                                 <i class="bi bi-receipt"></i>
-                                <strong>No transactions yet</strong>
+                                <strong>Your money story starts here.</strong>
                                 <div class="mt-2">
-                                    Add your first income or expense to get started.
+                                    Add your first transaction to see it here.
                                 </div>
-                                <button class="btn-green mt-3" type="button"
+                                <button type="button" class="btn-green mt-3"
                                         onclick="openAddModal()">
-                                    Add Your First Transaction
+                                    <i class="bi bi-plus-lg me-1"></i>
+                                    Add Transaction
                                 </button>
                             </div>
                         </td>
@@ -726,274 +4371,718 @@
         </div>
     </section>
 
-    <!-- BUDGETS AND SAVINGS GOALS -->
-    <!-- BUDGETS PAGE -->
-<section class="panel page-section" id="budgets-section">
-            <div class="section-heading">
-                <div>
-                    <h3>My Budgets</h3>
-                    <p>Set limits and track spending by category.</p>
-                </div>
-                <button class="btn-green" type="button"
-                        onclick="openBudgetAdd()">
-                    <i class="bi bi-plus-lg me-1"></i> Add
-                </button>
+    <!-- Encouragement Banner -->
+    <section class="money-motivation">
+        <div class="motivation-icon">
+            <i class="bi bi-lightbulb"></i>
+        </div>
+        <div>
+            <h4>Every peso has a purpose.</h4>
+            <p>
+                Track your spending, stick to your budget, and keep working
+                toward the financial goals that matter to you.
+            </p>
+        </div>
+        <button type="button" onclick="showPage('goals')"
+                class="motivation-link">
+            My goals <i class="bi bi-arrow-right"></i>
+        </button>
+    </section>
+
+</section>
+
+
+<!-- TRANSACTIONS -->
+<section class="panel page-section transactions-page" id="transactions-section">
+
+    <!-- Header -->
+    <div class="tx-page-header">
+        <div class="tx-header-copy">
+            <span class="tx-eyebrow">
+                <i class="bi bi-wallet2"></i>
+                YOUR FINANCIAL ACTIVITY
+            </span>
+            
+<h2>
+    <i class="bi bi-receipt"></i>
+    My Transactions
+</h2>
+
+            <p>Every peso has a purpose. Keep track of your money in one place.</p>
+        </div>
+
+<button type="button"
+        class="green-primary-btn"
+        onclick="openAddModal()">
+    <i class="bi bi-plus-lg"></i>
+    Add Transaction
+</button>
+    </div>
+
+    <!-- Transaction List -->
+    <div class="tx-list-card">
+
+        <div class="tx-list-heading">
+            <div>
+                <h3>Recent Activity</h3>
+                <p>Your recorded income and expenses</p>
             </div>
 
-            {% for budget in budgets %}
-    
-<div class="budget-financial-details">
-    <div class="d-flex justify-content-between mb-2">
-        <span>Total Budget</span>
-        <strong>₱{{ budget.amount|floatformat:2 }}</strong>
+            <span class="tx-count">
+                <i class="bi bi-receipt"></i>
+                {{ transactions|length }} transaction{{ transactions|length|pluralize }}
+            </span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table tx-table">
+                <thead>
+                    <tr>
+                        <th>TRANSACTION</th>
+                        <th>CATEGORY</th>
+                        <th>DATE</th>
+                        <th>TYPE</th>
+                        <th class="text-end">AMOUNT</th>
+                        <th class="text-center">ACTION</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for transaction in transactions %}
+                    <tr>
+                        <!-- Description -->
+                        <td>
+                            <div class="tx-name-cell">
+                                <div class="tx-item-icon
+                                    {% if transaction.transaction_type|lower == 'income' %}
+                                        tx-income-icon
+                                    {% else %}
+                                        tx-expense-icon
+                                    {% endif %}">
+                                    {% if transaction.transaction_type|lower == "income" %}
+                                        <i class="bi bi-arrow-down-left"></i>
+                                    {% else %}
+                                        <i class="bi bi-arrow-up-right"></i>
+                                    {% endif %}
+                                </div>
+
+                                <div class="tx-name-details">
+                                    <strong>{{ transaction.description }}</strong>
+
+                                    {% if transaction.transaction_type|lower != "income" %}
+                                        <span>
+                                            <i class="bi bi-credit-card"></i>
+                                            {{ transaction.payment_method|default:"Payment method not specified" }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- Category -->
+                        <td>
+                            <span class="tx-category-pill">
+                                {{ transaction.category|default:"Uncategorized" }}
+                            </span>
+                        </td>
+
+                        <!-- Date -->
+                        <td>
+                            <span class="tx-date">
+                                <i class="bi bi-calendar3"></i>
+                                {{ transaction.date|date:"M d, Y" }}
+                            </span>
+                        </td>
+
+                        <!-- Type -->
+                        <td>
+                            {% if transaction.transaction_type|lower == "income" %}
+                                <span class="tx-type-badge tx-income-badge">
+                                    <span class="tx-status-dot"></span>
+                                    Income
+                                </span>
+                            {% else %}
+                                <span class="tx-type-badge tx-expense-badge">
+                                    <span class="tx-status-dot"></span>
+                                    Expense
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <!-- Amount -->
+                        <td class="text-end">
+                            <strong class="tx-amount
+                                {% if transaction.transaction_type|lower == 'income' %}
+                                    tx-amount-income
+                                {% else %}
+                                    tx-amount-expense
+                                {% endif %}">
+                                {% if transaction.transaction_type|lower == "income" %}+{% else %}-{% endif %}₱{{ transaction.amount|floatformat:2 }}
+                            </strong>
+                        </td>
+
+                        <!-- Delete -->
+                        <td class="text-center">
+                            <form method="post"
+                                  class="tx-delete-form"
+                                  onsubmit="return confirm('Delete this transaction?');">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="transaction_id" value="{{ transaction.transaction_id }}">
+
+                                <button type="submit"
+                                        class="tx-delete-btn"
+                                        title="Delete transaction"
+                                        aria-label="Delete transaction">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                {% empty %}
+                    <tr>
+                        <td colspan="6">
+                            <div class="tx-empty-state">
+                                <div class="tx-empty-icon">
+                                    <i class="bi bi-receipt-cutoff"></i>
+                                </div>
+
+                                <h3>No transactions yet</h3>
+                                <p>Your income and expenses will appear here once you record them.</p>
+
+                                <button type="button"
+                                        class="tx-add-btn"
+                                        onclick="openAddModal()">
+                                    <i class="bi bi-plus-lg"></i>
+                                    Add Your First Transaction
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if transactions %}
+            <div class="tx-list-footer">
+                <i class="bi bi-shield-check"></i>
+                Your transactions are saved to your personal account.
+            </div>
+        {% endif %}
+
     </div>
 
-    <div class="d-flex justify-content-between mb-2">
-        <span>Expenses</span>
-        <strong class="text-danger">
-            − ₱{{ budget.spent|floatformat:2 }}
+</section>
+
+<!-- BUDGETS -->
+<section class="panel page-section green-budgets-page" id="budgets-section">
+
+    <div class="green-section-heading budget-list-heading">
+        <div>
+            <span class="green-section-kicker">YOUR FINANCIAL PLAN</span>
+            <h2><i class="bi bi-pie-chart-fill"></i> Your Budget Plans</h2>
+            <p>Check how much you have spent and how much remains.</p>
+        </div>
+
+        <button type="button"
+        class="green-primary-btn"
+        onclick="openBudgetAdd()">
+    <i class="bi bi-plus-lg"></i>
+    Add Budget
+</button>
+
+    </div>
+
+    {% if budgets %}
+    <div class="green-budget-grid">
+        {% for budget in budgets %}
+        <article class="green-budget-card">
+
+            <div class="green-budget-card-header">
+                <div class="green-budget-category-icon">
+                   {% if budget.category == 'Food' or budget.category == 'Food & Dining' %}
+    <i class="bi bi-egg-fried"></i>
+{% elif budget.category == 'Transportation' %}
+    <i class="bi bi-car-front-fill"></i>
+{% elif budget.category == 'Shopping' %}
+    <i class="bi bi-bag-fill"></i>
+{% elif budget.category == 'Bills' or budget.category == 'Utilities' %}
+    <i class="bi bi-receipt"></i>
+{% elif budget.category == 'Entertainment' %}
+    <i class="bi bi-controller"></i>
+{% elif budget.category == 'Health' or budget.category == 'Healthcare' %}
+    <i class="bi bi-heart-pulse-fill"></i>
+{% else %}
+    <i class="bi bi-wallet-fill"></i>
+{% endif %}
+                </div>
+
+                <div class="green-budget-card-title">
+                    <h3>{{ budget.category }}</h3>
+                    <span>
+                        <i class="bi bi-calendar3"></i>
+                        {{ budget.start_date|date:"M d, Y" }}
+                        – {{ budget.end_date|date:"M d, Y" }}
+                    </span>
+                </div>
+
+                <div class="green-budget-actions">
+                    <button type="button"
+                            class="green-icon-btn"
+                            title="Edit budget"
+                            data-id="{{ budget.pk }}"
+                            data-category="{{ budget.category }}"
+                            data-amount="{{ budget.amount }}"
+                            data-limit="{{ budget.spending_limit }}"
+                            data-payment-method="{{ budget.payment_method }}"
+                            data-start="{{ budget.start_date|date:'Y-m-d' }}"
+                            data-end="{{ budget.end_date|date:'Y-m-d' }}"
+                            onclick="openBudgetEdit(this)">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+
+                    <form method="post"
+                          onsubmit="return confirm('Are you sure you want to delete this budget?');">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="delete_budget">
+                        <input type="hidden" name="budget_id" value="{{ budget.pk }}">
+                        <button type="submit"
+                                class="green-icon-btn green-delete-btn"
+                                title="Delete budget">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+<!-- BUDGET AMOUNTS -->
+<div class="green-budget-amount-panel">
+    <div class="green-amount-item">
+        <span>
+            <i class="bi bi-wallet2"></i>
+            Budget Limit
+        </span>
+        <strong>₱{{ budget.spending_limit|floatformat:2 }}</strong>
+    </div>
+
+    <div class="green-amount-divider"></div>
+
+    <div class="green-amount-item">
+        <span>
+            <i class="bi bi-graph-up-arrow"></i>
+            Amount Spent
+        </span>
+        <strong class="green-spent-amount">
+            ₱{{ budget.spent|default:0|floatformat:2 }}
         </strong>
     </div>
+</div>
 
-    
-<form method="post" class="mt-3">
+            <div class="green-budget-progress-heading">
+                <span><i class="bi bi-speedometer2"></i> Budget usage</span>
+                <strong class="{% if budget.over_budget or budget.over_limit %}green-over-text{% endif %}">
+                    {{ budget.percent|default:0|floatformat:0 }}%
+                </strong>
+            </div>
+
+            <div class="green-budget-progress-track">
+                <div class="green-budget-progress-fill
+                    {% if budget.over_budget or budget.over_limit %}
+                        green-progress-over
+                    {% elif budget.percent >= 80 %}
+                        green-progress-warning
+                    {% endif %}"
+                    style="width:{% if budget.percent > 100 %}100{% elif budget.percent < 0 %}0{% else %}{{ budget.percent|default:0 }}{% endif %}%;">
+                </div>
+            </div>
+
+            <div class="green-budget-status-row">
+                {% if budget.over_budget or budget.over_limit %}
+                    <span class="green-budget-status status-budget-over">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Over budget
+                    </span>
+                {% elif budget.percent >= 80 %}
+                {% else %}
+                    <span class="green-budget-status status-budget-good">
+                        <i class="bi bi-check-circle-fill"></i> On track
+                    </span>
+                {% endif %}
+
+                <span class="green-budget-remaining">
+                    {% if budget.remaining != None %}
+                        ₱{{ budget.remaining|floatformat:2 }} remaining
+                    {% else %}
+                        Keep tracking
+                    {% endif %}
+                </span>
+            </div>
+
+            <div class="green-budget-details">
+                <div>
+                    <i class="bi bi-credit-card-2-front"></i>
+                    <span>
+                        <small>Payment Method</small>
+                        <strong>{{ budget.payment_method|default:"Not specified" }}</strong>
+                    </span>
+                </div>
+                <div>
+                    <i class="bi bi-calendar-range"></i>
+                    <span>
+                        <small>Budget Period</small>
+                        <strong>
+                            {{ budget.start_date|date:"M d" }} –
+                            {{ budget.end_date|date:"M d, Y" }}
+                        </strong>
+                    </span>
+                </div>
+            </div>
+
+{% if budget.remaining != None and budget.remaining > 0 %}
+<form method="POST" class="goal-contribution-form budget-expense-form">
     {% csrf_token %}
 
     <input type="hidden" name="action" value="add_budget_expense">
     <input type="hidden" name="budget_id" value="{{ budget.pk }}">
 
-    <label for="expense-{{ budget.pk }}" class="form-label">
-        Add Expense (₱)
-    </label>
+    <div class="goal-input-row">
+        <div class="goal-input-wrap">
+            <span>₱</span>
+            <input
+                type="number"
+                name="amount"
+                min="0.01"
+                step="0.01"
+                placeholder="Enter expense amount"
+                required
+            >
+        </div>
 
-    <div class="input-group">
-        <input
-            type="number"
-            id="expense-{{ budget.pk }}"
-            name="expense_amount"
-            class="form-control"
-            placeholder="Enter expense amount"
-            min="0.01"
-            step="0.01"
-            required
-        >
-
-        <button type="submit" class="btn-green">
-            <i class="bi bi-plus-lg"></i> Add Expense
+        <button type="submit" class="goal-save-btn">
+            <i class="bi bi-plus-circle-fill"></i>
+            Add Expense
         </button>
     </div>
 </form>
+{% endif %}
 
-    <hr>
-
-    <div class="d-flex justify-content-between mb-2">
-        <span>Budget Left</span>
-        <strong class="{% if budget.remaining < 0 %}text-danger{% else %}text-success{% endif %}">
-            ₱{{ budget.remaining|floatformat:2 }}
-        </strong>
+        </article>
+        {% endfor %}
     </div>
 
-    <div class="progress" style="height: 8px;">
-        <div class="progress-bar bg-success"
-             role="progressbar"
-             style="width: {{ budget.percent }}%;"
-             aria-valuenow="{{ budget.percent }}"
-             aria-valuemin="0"
-             aria-valuemax="100">
+    {% else %}
+    <div class="green-budget-empty">
+        <div class="green-budget-empty-icon">
+            <i class="bi bi-wallet2"></i>
         </div>
-    </div>
-</div>
-
-<div class="mini-meta">
-    Spent: ₱{{ budget.spent|floatformat:2 }}
-    ({{ budget.percent }}% of spending limit)
-</div>
-
-<div class="mini-meta {% if budget.remaining < 0 %}text-danger{% else %}text-success{% endif %}">
-    Budget remaining:
-    ₱{{ budget.remaining|floatformat:2 }}
-</div>
-
-<div class="mini-meta {% if budget.limit_remaining < 0 %}text-danger{% else %}text-success{% endif %}">
-    Spending allowance remaining:
-    ₱{{ budget.limit_remaining|floatformat:2 }}
-</div>
-
-{% if budget.over_limit %}
-    <div class="small text-danger fw-bold mt-2">
-        <i class="bi bi-exclamation-triangle"></i>
-        Spending limit exceeded!
-    </div>
-{% endif %}
-
-<div class="d-flex flex-wrap gap-2 mt-3">
-    <button type="button"
-            class="action-btn"
-            onclick="openGoalEdit(this)"
-            data-id="{{ goal.pk }}"
-            data-name="{{ goal.goal_name }}"
-            data-target="{{ goal.target_amount }}"
-            data-current="{{ goal.current_amount }}"
-            data-date="{{ goal.target_date|date:'Y-m-d' }}">
-        <i class="bi bi-pencil"></i> Edit / Update Savings
-    </button>
-</div>
-
-{% if budget.over_budget %}
-    <div class="small text-danger fw-bold mt-2">
-        The total allocated budget has been exceeded.
-    </div>
-{% endif %}
-<div class="d-flex flex-wrap gap-2 mt-3">
-    <button type="button"
-            class="action-btn"
-            onclick="openBudgetEdit(this)"
-            data-id="{{ budget.pk }}"
-            data-category="{{ budget.category }}"
-            data-amount="{{ budget.amount }}"
-            data-limit="{{ budget.effective_limit }}"
-            data-start="{{ budget.start_date|date:'Y-m-d' }}"
-            data-end="{{ budget.end_date|date:'Y-m-d' }}">
-        <i class="bi bi-pencil"></i> Edit
-    </button>
-
-    <form method="post"
-          onsubmit="return confirm('Delete this budget?');">
-        {% csrf_token %}
-        <input type="hidden" name="action" value="delete_budget">
-        <input type="hidden" name="budget_id" value="{{ budget.pk }}">
-        <button type="submit" class="action-btn delete-btn">
-            <i class="bi bi-trash3"></i> Delete
+        <span class="green-section-kicker">START WITH A PLAN</span>
+        <h3>Give your money a direction.</h3>
+        <p>You haven't created any budgets yet. Create a budget for a category and start tracking your spending.</p>
+        <button type="button" class="green-primary-btn" onclick="openBudgetAdd()">
+            <i class="bi bi-plus-lg"></i> Create Your First Budget
         </button>
-    </form>
-</div>
+    </div>
+    {% endif %}
+
+    <div class="green-tip-banner">
+        <div class="green-tip-icon"><i class="bi bi-lightbulb-fill"></i></div>
+        <div>
+            <h3>Budget Buddy Tip</h3>
+            <p>Review your spending regularly, set realistic limits, and leave room for unexpected expenses. A good budget helps you spend confidently.</p>
+        </div>
+        <i class="bi bi-stars green-tip-decoration"></i>
+    </div>
+
 </section>
 
-                </div>
-            {% empty %}
-                <div class="empty">
-                    <i class="bi bi-pie-chart"></i>
-                    <strong>No budgets created</strong>
-                    <div class="mt-2">Create a spending limit for a category.</div>
-                </div>
-            {% endfor %}
-        </section>
 
-        <section class="panel page-section" id="goals-section">
-            <div class="section-heading">
-                <div>
-                    <h3>Savings Goals</h3>
-                    <p>Plan for your future and track your progress.</p>
+<!-- SAVING GOALS -->
+<section class="panel page-section green-goals-page" id="goals-section">
+
+    <div class="green-section-heading">
+        <div>
+            <span class="green-section-kicker">YOUR FINANCIAL MILESTONES</span>
+            <h2><i class="bi bi-bullseye"></i> My Savings Goals</h2>
+            <p>Stay motivated and track every step toward your target.</p>
+        </div>
+
+<button type="button"
+        class="green-primary-btn"
+        onclick="openGoalAdd()">
+    <i class="bi bi-plus-lg"></i>
+    Add Goal
+</button>
+    </div>
+
+    <div class="goals-grid">
+        {% for goal in savings_goals %}
+        <article class="green-goal-card">
+
+            <div class="goal-card-top">
+                <div class="goal-card-icon">
+                    <i class="bi bi-piggy-bank-fill"></i>
                 </div>
-                <button class="btn-green" type="button"
-                        onclick="openGoalAdd()">
-                    <i class="bi bi-plus-lg me-1"></i> Add
-                </button>
+
+                <div class="goal-title-wrap">
+                    <h3>{{ goal.goal_name }}</h3>
+                    <span class="goal-date">
+                        <i class="bi bi-calendar-event"></i>
+                        {{ goal.target_date|date:"M d, Y"|default:"No target date" }}
+                    </span>
+                </div>
+
+                <div class="goal-actions">
+                    <button type="button"
+                            class="green-icon-btn"
+                            title="Edit goal"
+                            onclick="openGoalEdit(this)"
+                            data-id="{{ goal.pk }}"
+                            data-name="{{ goal.goal_name|escapejs }}"
+                            data-target="{{ goal.target_amount }}"
+                            data-current="{{ goal.current_amount }}"
+                            data-date="{{ goal.target_date|date:'Y-m-d' }}">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+
+                    <form method="post"
+                          onsubmit="return confirm('Delete this savings goal?');">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="delete_goal">
+                        <input type="hidden" name="goal_id" value="{{ goal.pk }}">
+                        <button type="submit" class="green-icon-btn goal-delete-btn"
+                                title="Delete goal">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
 
-            {% for goal in savings_goals %}
-                <div class="mini-card">
-                    <div class="d-flex justify-content-between gap-2">
-                        <div class="mini-title">{{ goal.goal_name }}</div>
-                        <div class="mini-amount text-success">
-                            ₱{{ goal.current_amount|floatformat:2 }}
-                        </div>
-                    </div>
+            <div class="goal-money-panel">
+                <div>
+                    <span class="goal-small-label">CURRENT SAVINGS</span>
+                    <strong class="goal-current-amount">
+                        ₱{{ goal.current_amount|floatformat:2 }}
+                    </strong>
+                </div>
+                <div class="goal-target-box">
+                    <span class="goal-small-label">TARGET AMOUNT</span>
+                    <strong>₱{{ goal.target_amount|floatformat:2 }}</strong>
+                </div>
+            </div>
 
-                    <div class="mini-meta">
-                        Target: ₱{{ goal.target_amount|floatformat:2 }}
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"
-                             role="progressbar"
-                             style="width:{{ goal.percent }}%"
-                             aria-valuenow="{{ goal.percent }}"
-                             aria-valuemin="0"
-                             aria-valuemax="100"></div>
-                    </div>
-
-                    <div class="mini-meta">
-                        {{ goal.percent }}% complete
-                    </div>
-                    <div class="mini-meta">
-                        Still needed: ₱{{ goal.remaining|floatformat:2 }}
-                    </div>
-                    <div class="mini-meta">
-                        Target date: {{ goal.target_date|date:"M d, Y" }}
-                    </div>
-
-                    
-<form method="post" class="mt-3">
-    {% csrf_token %}
-    <input type="hidden" name="action" value="contribute_goal">
-    <input type="hidden" name="goal_id" value="{{ goal.pk }}">
-
-    <label class="form-label" for="contribution-{{ goal.pk }}">
-        Add Savings (₱)
-    </label>
-
-    <div class="input-group">
-        <input type="number"
-               class="form-control"
-               id="contribution-{{ goal.pk }}"
-               name="contribution_amount"
-               min="0.01"
-               step="0.01"
-               placeholder="Enter amount"
-               required>
-        <button type="submit" class="btn-green">
-            <i class="bi bi-plus-lg"></i> Add
-        </button>
-    </div>
-</form>
-
-
-                    {% if goal.current_amount >= goal.target_amount %}
-                        <div class="small text-success fw-bold mt-2">
-                            <i class="bi bi-check-circle"></i>
-                            Goal reached!
-                        </div>
+            <div class="goal-progress-heading">
+                <span><i class="bi bi-graph-up-arrow"></i> Savings progress</span>
+                <strong>
+                    {% if goal.target_amount > 0 %}
+                        {% widthratio goal.current_amount goal.target_amount 100 %}%
+                    {% else %}
+                        0%
                     {% endif %}
+                </strong>
+            </div>
 
-                    <div class="d-flex flex-wrap gap-2 mt-3">
-                        <button type="button" class="action-btn"
-                                onclick="openGoalEdit(this)"
-                                data-id="{{ goal.pk }}"
-                                data-name="{{ goal.goal_name }}"
-                                data-target="{{ goal.target_amount }}"
-                                data-current="{{ goal.current_amount }}"
-                                data-date="{{ goal.target_date|date:'Y-m-d' }}">
-                            <i class="bi bi-pencil"></i> Edit / Update Savings
+            <div class="goal-progress-track">
+                <div class="goal-progress-fill"
+                     role="progressbar"
+                     style="width:{% if goal.target_amount > 0 %}{% widthratio goal.current_amount goal.target_amount 100 %}{% else %}0{% endif %}%;"
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+                </div>
+            </div>
+
+            {% if goal.current_amount >= goal.target_amount %}
+                <div class="goal-completed-message">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Congratulations! You've reached your goal.
+                </div>
+            {% else %}
+                <div class="goal-encouragement">
+                    <i class="bi bi-heart-fill"></i>
+                    Keep going! Every contribution counts.
+                </div>
+
+                <form method="post" class="goal-contribution-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="contribute_goal">
+                    <input type="hidden" name="goal_id" value="{{ goal.pk }}">
+
+                    <label for="contribution-{{ goal.pk }}">
+                        <i class="bi bi-plus-lg"></i> Add to your savings
+                    </label>
+
+                    <div class="goal-input-row">
+                        <div class="goal-input-wrap">
+                            <span>₱</span>
+                            <input type="number"
+                                   id="contribution-{{ goal.pk }}"
+                                   name="contribution_amount"
+                                   min="0.01"
+                                   step="0.01"
+                                   placeholder="Enter amount"
+                                   required>
+                        </div>
+                        <button type="submit" class="goal-save-btn">
+                            Add Savings <i class="bi bi-arrow-up-right"></i>
                         </button>
-
-                        <form method="post"
-                              onsubmit="return confirm('Delete this savings goal?');">
-                            {% csrf_token %}
-                            <input type="hidden" name="action" value="delete_goal">
-                            <input type="hidden" name="goal_id"
-                                   value="{{ goal.pk }}">
-                            <button type="submit"
-                                    class="action-btn delete-btn">
-                                <i class="bi bi-trash3"></i> Delete
-                            </button>
-                        </form>
                     </div>
-                </div>
-            {% empty %}
-                <div class="empty">
-                    <i class="bi bi-bullseye"></i>
-                    <strong>No savings goals yet</strong>
-                    <div class="mt-2">Create a target and start tracking savings.</div>
-                </div>
-            {% endfor %}
-        </section>
+                </form>
+            {% endif %}
+        </article>
 
-    <footer class="text-center text-secondary small mt-3">
-        Budget Buddy · Personal Budget and Financial Planning Management System
-    </footer>
+        {% empty %}
+        <div class="goals-empty-state">
+            <div class="goals-empty-icon">
+                <i class="bi bi-piggy-bank"></i>
+            </div>
+            <span class="green-section-kicker">YOUR NEXT CHAPTER</span>
+            <h3>Every big dream starts small.</h3>
+            <p>You haven't created a savings goal yet. Start with one goal and build your savings one step at a time.</p>
+            <button type="button" class="green-primary-btn" onclick="openGoalAdd()">
+                <i class="bi bi-plus-lg"></i> Create Your First Goal
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="green-tip-banner">
+        <div class="green-tip-icon"><i class="bi bi-lightbulb-fill"></i></div>
+        <div>
+            <h3>A little progress adds up.</h3>
+            <p>Choose an amount you can save consistently. Small, regular contributions can help you reach your financial goals.</p>
+        </div>
+        <i class="bi bi-stars green-tip-decoration"></i>
+    </div>
+
+</section>
+
+
+<!-- ACCOUNT -->
+<section class="panel page-section" id="account-section">
+
+   <!-- Account Header -->
+<div class="account-header">
+    <div class="account-header-copy">
+        <span class="account-eyebrow">
+            YOUR PROFILE
+        </span>
+
+        <h2>
+            <i class="bi bi-person-circle"></i>
+            My Account
+        </h2>
+
+        <p>Your profile and personal account information.</p>
+    </div>
+</div>
+
+    <!-- Profile Overview -->
+    <div class="account-overview">
+
+        <div class="account-profile">
+            <div class="account-avatar">
+                <i class="bi bi-person-fill"></i>
+            </div>
+
+            <div class="account-identity">
+                <span class="account-welcome">WELCOME TO BUDGET BUDDY</span>
+                <h3>{{ request.user.username }}</h3>
+                <p>
+                    <i class="bi bi-envelope"></i>
+                    {{ request.user.email|default:"No email address added" }}
+                </p>
+            </div>
+        </div>
+
+        <div class="account-member-tag">
+            <i class="bi bi-check-circle-fill"></i>
+            Member
+        </div>
+
+    </div>
+
+    <!-- Account Details -->
+    <div class="account-details-section">
+        <div class="account-section-title">
+            <div>
+                <h3>Personal Details</h3>
+                <p>Your registered information at a glance.</p>
+            </div>
+            <i class="bi bi-card-list"></i>
+        </div>
+
+        <div class="account-details-grid">
+
+            <div class="account-detail-card">
+                <div class="account-detail-icon">
+                    <i class="bi bi-person"></i>
+                </div>
+
+                <div class="account-detail-content">
+                    <span>Username</span>
+                    <strong>{{ request.user.username }}</strong>
+                </div>
+            </div>
+
+            <div class="account-detail-card">
+                <div class="account-detail-icon">
+                    <i class="bi bi-envelope-at"></i>
+                </div>
+
+                <div class="account-detail-content">
+                    <span>Email Address</span>
+                    <strong>
+                        {{ request.user.email|default:"Not provided" }}
+                    </strong>
+                </div>
+            </div>
+
+            <div class="account-detail-card">
+                <div class="account-detail-icon">
+                    <i class="bi bi-calendar3"></i>
+                </div>
+
+                <div class="account-detail-content">
+                    <span>Date Joined</span>
+                    <strong>{{ request.user.date_joined|date:"M d, Y" }}</strong>
+                </div>
+            </div>
+
+            <div class="account-detail-card">
+                <div class="account-detail-icon">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+
+                <div class="account-detail-content">
+                    <span>Workspace</span>
+                    <strong>Budget Buddy</strong>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Account Logout -->
+<div class="account-logout">
+    <div class="account-logout-info">
+        <i class="bi bi-box-arrow-right"></i>
+        <div>
+            <h3>Log Out</h3>
+            <p>Sign out of your Budget Buddy account.</p>
+        </div>
+    </div>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="account-logout-btn">
+            <i class="bi bi-box-arrow-right"></i>
+            Log Out
+        </button>
+
+    </form>
+</div>
+
+</section>
 </main>
-
 
 <!-- TRANSACTION MODAL -->
 <div class="modal fade" id="transactionModal" tabindex="-1"
@@ -1002,14 +5091,11 @@
         <div class="modal-content">
             <form method="post" id="transactionForm">
                 {% csrf_token %}
-
                 <div class="modal-header">
                     <div>
-                        <h5 class="modal-title" id="transactionModalTitle">
-                            Add Transaction
-                        </h5>
+                        <h5 class="modal-title" id="transactionModalTitle">Add Transaction</h5>
                         <div class="text-secondary small mt-1">
-                            Record your income or expense and plan how to handle the money.
+                            Record income or expenses and plan how to use the money.
                         </div>
                     </div>
                     <button type="button" class="btn-close"
@@ -1021,9 +5107,7 @@
                     <input type="hidden" name="transaction_id" id="transactionId">
 
                     <div class="mb-3">
-                        <label class="form-label" for="description">
-                            Transaction Description
-                        </label>
+                        <label class="form-label" for="description">Description</label>
                         <input type="text" name="description" id="description"
                                class="form-control" maxlength="100"
                                placeholder="e.g. Monthly salary" required>
@@ -1031,23 +5115,18 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="transactionType">
-                                Transaction Type
-                            </label>
+                            <label class="form-label" for="transactionType">Type</label>
                             <select name="transaction_type" id="transactionType"
                                     class="form-select" required>
                                 <option value="Income">Income</option>
                                 <option value="Expense">Expense</option>
                             </select>
                         </div>
-
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="amount">
-                                Amount (₱)
-                            </label>
+                            <label class="form-label" for="amount">Amount (₱)</label>
                             <input type="number" name="amount" id="amount"
                                    class="form-control" min="0.01"
-                                   step="0.01" placeholder="0.00" required>
+                                   step="0.01" required>
                         </div>
                     </div>
 
@@ -1067,17 +5146,13 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="fundType">Fund Type</label>
-                            <select name="fund_type" id="fundType"
-                                    class="form-select" required>
+                            <select name="fund_type" id="fundType" class="form-select" required>
                                 <option value="Cash">Cash</option>
                                 <option value="Digital">Digital</option>
                             </select>
                         </div>
-
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="paymentMethod">
-                                Payment Method
-                            </label>
+                            <label class="form-label" for="paymentMethod">Payment Method</label>
                             <select name="payment_method" id="paymentMethod"
                                     class="form-select" required>
                                 <option value="Cash">Cash</option>
@@ -1098,17 +5173,13 @@
                     </h6>
 
                     <div class="plan-note mb-3">
-                        Record how you intend to use or allocate this money.
-                        This plan is saved with the transaction; it does not
-                        automatically transfer money between accounts.
+                        This plan records how you intend to use the money.
+                        It does not automatically transfer funds between accounts.
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="allocation">
-                            What is this money for?
-                        </label>
-                        <select name="allocation" id="allocation"
-                                class="form-select" required>
+                        <label class="form-label" for="allocation">Allocation</label>
+                        <select name="allocation" id="allocation" class="form-select" required>
                             <option value="Needs">Essential needs and bills</option>
                             <option value="Savings">Savings / emergency fund</option>
                             <option value="Debt repayment">Debt repayment</option>
@@ -1119,18 +5190,15 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="moneyPlan">
-                            Your Plan for This Money
-                        </label>
+                        <label class="form-label" for="moneyPlan">Your Plan</label>
                         <textarea name="money_plan" id="moneyPlan"
                                   class="form-control" rows="3"
-                                  placeholder="Example: Set aside ₱2,000 for savings and reserve the rest for bills."></textarea>
+                                  placeholder="How do you plan to use this money?"></textarea>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="priority">Priority</label>
-                        <select name="priority" id="priority"
-                                class="form-select" required>
+                        <select name="priority" id="priority" class="form-select" required>
                             <option value="High">High</option>
                             <option value="Medium" selected>Medium</option>
                             <option value="Low">Low</option>
@@ -1150,8 +5218,6 @@
     </div>
 </div>
 
-
-
 <!-- BUDGET MODAL -->
 <div class="modal fade" id="budgetModal" tabindex="-1"
      aria-labelledby="budgetModalTitle" aria-hidden="true">
@@ -1159,121 +5225,87 @@
         <div class="modal-content">
             <form method="post" id="budgetForm">
                 {% csrf_token %}
-
                 <div class="modal-header">
-                    <h5 class="modal-title" id="budgetModalTitle">
-                        Add Budget
-                    </h5>
+                    <h5 class="modal-title" id="budgetModalTitle">Add Budget</h5>
                     <button type="button" class="btn-close"
                             data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
-                    <input type="hidden" name="action" id="budgetAction"
-                           value="add_budget">
+                    <input type="hidden" name="action" id="budgetAction" value="add_budget">
                     <input type="hidden" name="budget_id" id="budgetId">
 
                     <div class="mb-3">
-                        <label class="form-label" for="budgetCategory">
-                            Category
-                        </label>
-
-                        <select class="form-select"
-                                name="budget_category"
+                        <label class="form-label" for="budgetCategory">Category</label>
+                        <select class="form-select" name="budget_category"
                                 id="budgetCategory" required>
                             <option value="">Select a category</option>
                             {% for category in budget_categories %}
-                                <option value="{{ category }}">
-                                    {{ category }}
-                                </option>
+                                <option value="{{ category }}">{{ category }}</option>
                             {% endfor %}
                         </select>
                     </div>
 
                     <div class="mb-3 d-none" id="otherCategoryContainer">
-                        <label class="form-label" for="budgetCategoryOther">
-                            Enter Custom Category
-                        </label>
-                        <input type="text"
-                               class="form-control"
+                        <label class="form-label" for="budgetCategoryOther">Custom Category</label>
+                        <input type="text" class="form-control"
                                name="budget_category_other"
-                               id="budgetCategoryOther"
-                               maxlength="100"
-                               placeholder="e.g. Pet Supplies">
+                               id="budgetCategoryOther" maxlength="100">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="budgetAmount">
-                            Total Budget (₱)
-                        </label>
-                        <input type="number"
-                               class="form-control"
-                               name="budget_amount"
-                               id="budgetAmount"
-                               min="0.01" step="0.01"
-                               placeholder="e.g. 5000"
-                               required>
-                        <div class="form-text">
-                            The total money allocated to this category.
-                        </div>
+                        <label class="form-label" for="budgetAmount">Total Budget (₱)</label>
+                        <input type="number" class="form-control"
+                               name="budget_amount" id="budgetAmount"
+                               min="0.01" step="0.01" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="spendingLimit">
-                            Spending Limit (₱)
+                        <label class="form-label" for="spendingLimit">Spending Limit (₱)</label>
+                        <input type="number" class="form-control"
+                               name="spending_limit" id="spendingLimit"
+                               min="0.01" step="0.01" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="budgetPaymentMethod" class="form-label">
+                            Payment Method
                         </label>
-                        <input type="number"
-                               class="form-control"
-                               name="spending_limit"
-                               id="spendingLimit"
-                               min="0.01" step="0.01"
-                               placeholder="e.g. 4000"
-                               required>
-                        <div class="form-text">
-                            Must not exceed the total budget.
-                        </div>
+                        <select name="payment_method"
+                                id="budgetPaymentMethod"
+                                class="form-select"
+                                required>
+                            <option value="">Select Payment Method</option>
+                            <option value="Cash">Cash</option>
+                            <option value="GCash">GCash</option>
+                            <option value="Maya">Maya</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Debit Card">Debit Card</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="budgetStart">
-                                Start Date
-                            </label>
-                            <input type="date"
-                                   class="form-control"
-                                   name="start_date"
-                                   id="budgetStart"
-                                   value="{{ today }}"
-                                   required>
+                            <label class="form-label" for="budgetStart">Start Date</label>
+                            <input type="date" class="form-control"
+                                   name="start_date" id="budgetStart"
+                                   value="{{ today }}" required>
                         </div>
-
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="budgetEnd">
-                                End Date
-                            </label>
-                            <input type="date"
-                                   class="form-control"
-                                   name="end_date"
-                                   id="budgetEnd"
-                                   value="{{ today }}"
-                                   required>
+                            <label class="form-label" for="budgetEnd">End Date</label>
+                            <input type="date" class="form-control"
+                                   name="end_date" id="budgetEnd"
+                                   value="{{ today }}" required>
                         </div>
-                    </div>
-
-                    <div class="plan-note">
-                        Expenses with the same category and a date within
-                        this budget period are counted automatically.
-                        The remaining budget and spending progress update
-                        when you save a transaction.
                     </div>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light"
                             data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn-green">
-                        Save Budget
-                    </button>
+                    <button type="submit" class="btn-green">Save Budget</button>
                 </div>
             </form>
         </div>
@@ -1287,69 +5319,46 @@
         <div class="modal-content">
             <form method="post" id="goalForm">
                 {% csrf_token %}
-
                 <div class="modal-header">
-                    <h5 class="modal-title" id="goalModalTitle">
-                        Add Savings Goal
-                    </h5>
+                    <h5 class="modal-title" id="goalModalTitle">Add Savings Goal</h5>
                     <button type="button" class="btn-close"
                             data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
-                    <input type="hidden" name="action" id="goalAction"
-                           value="add_goal">
+                    <input type="hidden" name="action" id="goalAction" value="add_goal">
                     <input type="hidden" name="goal_id" id="goalId">
 
-                    
-<div class="mb-3">
-    <label class="form-label" for="goalCategory">
-        Savings Goal Category
-    </label>
+                    <div class="mb-3">
+                        <label class="form-label" for="goalCategory">Savings Goal</label>
+                        <select class="form-select" name="goal_category"
+                                id="goalCategory" required>
+                            <option value="">Select a goal</option>
+                            {% for category in savings_goal_categories %}
+                                <option value="{{ category }}">{{ category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-    <select class="form-select"
-            name="goal_category"
-            id="goalCategory"
-            required>
-        <option value="">Select a goal</option>
-        {% for category in savings_goal_categories %}
-            <option value="{{ category }}">{{ category }}</option>
-        {% endfor %}
-    </select>
-</div>
-
-<div class="mb-3 d-none" id="otherGoalContainer">
-    <label class="form-label" for="goalNameOther">
-        Enter Custom Goal
-    </label>
-    <input type="text"
-           class="form-control"
-           name="goal_name_other"
-           id="goalNameOther"
-           maxlength="100"
-           placeholder="e.g. New Laptop">
-</div>
+                    <div class="mb-3 d-none" id="otherGoalContainer">
+                        <label class="form-label" for="goalNameOther">Custom Goal</label>
+                        <input type="text" class="form-control"
+                               name="goal_name_other" id="goalNameOther"
+                               maxlength="100">
+                    </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="goalTarget">
-                            Target Amount (₱)
-                        </label>
+                        <label class="form-label" for="goalTarget">Target Amount (₱)</label>
                         <input type="number" class="form-control"
                                name="target_amount" id="goalTarget"
                                min="0.01" step="0.01" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="goalCurrent">
-                            Current Savings (₱)
-                        </label>
+                        <label class="form-label" for="goalCurrent">Current Savings (₱)</label>
                         <input type="number" class="form-control"
                                name="current_amount" id="goalCurrent"
                                min="0" step="0.01" value="0" required>
-                        <div class="form-text">
-                            Update this amount when you add to or withdraw
-                            from your savings goal.
-                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -1370,22 +5379,18 @@
     </div>
 </div>
 
-
-<!-- VIEW MONEY PLAN MODAL -->
+<!-- MONEY PLAN MODAL -->
 <div class="modal fade" id="planModal" tabindex="-1"
      aria-labelledby="planModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="planModalTitle">
-                    Money Handling Plan
-                </h5>
+                <h5 class="modal-title" id="planModalTitle">Money Handling Plan</h5>
                 <button type="button" class="btn-close"
                         data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div id="planText"
-                     style="white-space:pre-wrap;overflow-wrap:anywhere;"></div>
+                <div id="planText" style="white-space:pre-wrap;overflow-wrap:anywhere;"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-green"
@@ -1395,6 +5400,109 @@
     </div>
 </div>
 
+<!-- BUDGET EXPENSE MODAL -->
+<div class="modal fade" id="budgetExpenseModal" tabindex="-1"
+     aria-labelledby="budgetExpenseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" id="budgetExpenseForm">
+                {% csrf_token %}
+
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title" id="budgetExpenseModalLabel">
+                            Add Budget Expense
+                        </h5>
+                        <div class="text-secondary small mt-1">
+                            Record spending against this budget.
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="transaction_type" value="Expense">
+                    <input type="hidden" name="category" id="budgetExpenseCategoryValue">
+
+                    <div class="mb-3">
+                        <label class="form-label" for="budgetExpenseCategory">
+                            Budget Category
+                        </label>
+                        <input type="text" id="budgetExpenseCategory"
+                               class="form-control" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="budgetExpenseDescription">
+                            What did you spend on?
+                        </label>
+                        <input type="text" name="description"
+                               id="budgetExpenseDescription"
+                               class="form-control" maxlength="100"
+                               placeholder="e.g. Lunch, groceries, bus fare"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="budgetExpenseAmount">
+                            Amount Spent (₱)
+                        </label>
+                        <input type="number" name="amount"
+                               id="budgetExpenseAmount"
+                               class="form-control"
+                               min="0.01" step="0.01"
+                               placeholder="0.00" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="budgetExpenseDate">
+                            Date of Expense
+                        </label>
+                        <input type="date" name="date"
+                               id="budgetExpenseDate"
+                               class="form-control"
+                               value="{{ today }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="budgetExpensePayment">
+                            Payment Method
+                        </label>
+                        <select name="payment_method" id="budgetExpensePayment"
+                                class="form-select" required>
+                            <option value="Cash">Cash</option>
+                            <option value="GCash">GCash</option>
+                            <option value="Maya">Maya</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Card">Card</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <input type="hidden" name="fund_type" value="Cash">
+                    <input type="hidden" name="allocation" value="Needs">
+                    <input type="hidden" name="priority" value="Medium">
+
+                    <div class="plan-note">
+                        Your expense will be saved to Transactions and counted
+                        toward this budget when its category and date match.
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-green">
+                        <i class="bi bi-check2-circle me-1"></i>
+                        Save Expense
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -1402,196 +5510,187 @@
     const transactionModal = new bootstrap.Modal(
         document.getElementById("transactionModal")
     );
-
     const budgetModal = new bootstrap.Modal(
         document.getElementById("budgetModal")
     );
-
     const goalModal = new bootstrap.Modal(
         document.getElementById("goalModal")
     );
-
-    
-const goalCategory = document.getElementById("goalCategory");
-const otherGoalContainer = document.getElementById("otherGoalContainer");
-const goalNameOther = document.getElementById("goalNameOther");
-
-function toggleOtherGoal() {
-    const isOther = goalCategory.value === "Others";
-
-    otherGoalContainer.classList.toggle("d-none", !isOther);
-    goalNameOther.required = isOther;
-
-    if (!isOther) {
-        goalNameOther.value = "";
-    }
-}
-
-goalCategory.addEventListener("change", toggleOtherGoal);
-
-function setGoalCategory(savedName) {
-    const options = Array.from(goalCategory.options);
-    const isPreset = options.some(
-        option => option.value === savedName &&
-                  option.value !== "" &&
-                  option.value !== "Others"
-    );
-
-    if (isPreset) {
-        goalCategory.value = savedName;
-        goalNameOther.value = "";
-    } else {
-        goalCategory.value = "Others";
-        goalNameOther.value = savedName;
-    }
-
-    toggleOtherGoal();
-}
-
     const planModal = new bootstrap.Modal(
         document.getElementById("planModal")
     );
+    const budgetExpenseModal = new bootstrap.Modal(
+        document.getElementById("budgetExpenseModal")
+    );
+
+
+function showPage(pageName) {
+    const validPages = [
+        "dashboard",
+        "transactions",
+        "budgets",
+        "goals",
+        "account"
+    ];
+
+    if (!validPages.includes(pageName)) {
+        pageName = "dashboard";
+    }
+
+    const targetSection = document.getElementById(pageName + "-section");
+
+    if (!targetSection) {
+        console.error("Section not found:", pageName + "-section");
+        return;
+    }
+
+    document.querySelectorAll(".page-section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    targetSection.classList.add("active");
+
+    document.querySelectorAll(".side-link").forEach(link => {
+        link.classList.toggle(
+            "active",
+            link.getAttribute("href") === "#" + pageName
+        );
+    });
+
+    window.location.hash = pageName;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".side-link").forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+            showPage(this.getAttribute("href").substring(1));
+        });
+    });
+
+    showPage(window.location.hash.substring(1) || "dashboard");
+});
+
+window.addEventListener("hashchange", function () {
+    showPage(window.location.hash.substring(1) || "dashboard");
+});
 
     function openAddModal() {
         document.getElementById("transactionForm").reset();
-
         document.getElementById("formAction").value = "add";
         document.getElementById("transactionId").value = "";
         document.getElementById("transactionModalTitle").textContent =
             "Add Transaction";
-
         document.getElementById("date").value = "{{ today|escapejs }}";
         document.getElementById("transactionType").value = "Income";
         document.getElementById("fundType").value = "Cash";
         document.getElementById("paymentMethod").value = "Cash";
         document.getElementById("allocation").value = "Needs";
-        document.getElementById("moneyPlan").value = "";
         document.getElementById("priority").value = "Medium";
-
-        transactionModal.show();
-    }
-
-    function Modal(button) {
-        document.getElementById("formAction").value = "edit";
-        document.getElementById("transactionId").value = button.dataset.id;
-        document.getElementById("description").value =
-            button.dataset.description;
-        document.getElementById("amount").value = button.dataset.amount;
-        document.getElementById("transactionType").value = button.dataset.type;
-        document.getElementById("date").value = button.dataset.date;
-        document.getElementById("category").value = button.dataset.category;
-        document.getElementById("paymentMethod").value =
-            button.dataset.payment;
-        document.getElementById("fundType").value = button.dataset.fund;
-
-        document.getElementById("allocation").value =
-            button.dataset.allocation || "Needs";
-        document.getElementById("moneyPlan").value =
-            button.dataset.moneyPlan || "";
-        document.getElementById("priority").value =
-            button.dataset.priority || "Medium";
-
-        document.getElementById("transactionModalTitle").textContent =
-            "Edit Transaction";
-
         transactionModal.show();
     }
 
     function showMoneyPlan(button) {
-        // Use textContent so notes are displayed as text, not HTML.
-        document.getElementById("planText").textContent = button.dataset.plan;
+        document.getElementById("planText").textContent =
+            button.dataset.plan || "";
         planModal.show();
     }
 
-    
-const budgetCategory = document.getElementById("budgetCategory");
-const otherCategoryContainer =
-    document.getElementById("otherCategoryContainer");
-const budgetCategoryOther =
-    document.getElementById("budgetCategoryOther");
+    /* BUDGET FUNCTIONS */
+    const budgetCategory = document.getElementById("budgetCategory");
+    const otherCategoryContainer =
+        document.getElementById("otherCategoryContainer");
+    const budgetCategoryOther =
+        document.getElementById("budgetCategoryOther");
 
-function toggleOtherCategory() {
-    const isOther = budgetCategory.value === "Others";
+    function toggleOtherCategory() {
+        const isOther =
+            budgetCategory.value.toLowerCase() === "others";
 
-    otherCategoryContainer.classList.toggle("d-none", !isOther);
-    budgetCategoryOther.required = isOther;
+        otherCategoryContainer.classList.toggle("d-none", !isOther);
+        budgetCategoryOther.required = isOther;
 
-    if (!isOther) {
-        budgetCategoryOther.value = "";
-    }
-}
-
-budgetCategory.addEventListener("change", toggleOtherCategory);
-
-function openBudgetAdd() {
-    document.getElementById("budgetForm").reset();
-
-    document.getElementById("budgetAction").value = "add_budget";
-    document.getElementById("budgetId").value = "";
-
-    document.getElementById("budgetModalTitle").textContent = "Add Budget";
-    document.getElementById("budgetStart").value = "{{ today|escapejs }}";
-    document.getElementById("budgetEnd").value = "{{ today|escapejs }}";
-
-    otherCategoryContainer.classList.add("d-none");
-    budgetCategoryOther.required = false;
-
-    budgetModal.show();
-}
-
-function openBudgetEdit(button) {
-    document.getElementById("budgetAction").value = "edit_budget";
-    document.getElementById("budgetId").value = button.dataset.id;
-
-    const savedCategory = button.dataset.category;
-    const categoryOptions = Array.from(budgetCategory.options);
-
-    const isPreset = categoryOptions.some(
-        option => option.value === savedCategory
-            && option.value !== "Others"
-            && option.value !== ""
-    );
-
-    if (isPreset) {
-        budgetCategory.value = savedCategory;
-        budgetCategoryOther.value = "";
-    } else {
-        budgetCategory.value = "Others";
-        budgetCategoryOther.value = savedCategory;
+        if (!isOther) {
+            budgetCategoryOther.value = "";
+        }
     }
 
-    toggleOtherCategory();
+    budgetCategory.addEventListener("change", toggleOtherCategory);
 
-    document.getElementById("budgetAmount").value =
-        button.dataset.amount;
+    function openBudgetAdd() {
+        document.getElementById("budgetForm").reset();
+        document.getElementById("budgetAction").value = "add_budget";
+        document.getElementById("budgetId").value = "";
+        document.getElementById("budgetModalTitle").textContent = "Add Budget";
+        document.getElementById("budgetStart").value = "{{ today|escapejs }}";
+        document.getElementById("budgetEnd").value = "{{ today|escapejs }}";
+        document.getElementById("budgetPaymentMethod").value = "";
+        toggleOtherCategory();
+        budgetModal.show();
+    }
 
-    document.getElementById("spendingLimit").value =
-        button.dataset.limit || button.dataset.amount;
+    function openBudgetExpenseModal(budgetId, category) {
+        const form = document.getElementById("budgetExpenseForm");
+        form.reset();
 
-    document.getElementById("budgetStart").value = button.dataset.start;
-    document.getElementById("budgetEnd").value = button.dataset.end;
+        document.getElementById("budgetExpenseCategory").value = category;
+        document.getElementById("budgetExpenseCategoryValue").value = category;
+        document.getElementById("budgetExpenseDate").value = "{{ today|escapejs }}";
+        document.getElementById("budgetExpensePayment").value = "Cash";
 
-    document.getElementById("budgetModalTitle").textContent = "Edit Budget";
+        budgetExpenseModal.show();
+    }
 
-    budgetModal.show();
-}
+    function openBudgetEdit(button) {
+        document.getElementById("budgetAction").value = "edit_budget";
+        document.getElementById("budgetId").value = button.dataset.id;
 
-document.getElementById("budgetForm").addEventListener(
-    "submit",
-    function(event) {
+        const savedCategory = button.dataset.category;
+
+        const found = Array.from(budgetCategory.options).some(option =>
+            option.value === savedCategory &&
+            option.value !== "" &&
+            option.value.toLowerCase() !== "others"
+        );
+
+        if (found) {
+            budgetCategory.value = savedCategory;
+            budgetCategoryOther.value = "";
+        } else {
+            budgetCategory.value = "Others";
+            budgetCategoryOther.value = savedCategory;
+        }
+
+        toggleOtherCategory();
+
+        document.getElementById("budgetAmount").value =
+            button.dataset.amount;
+        document.getElementById("spendingLimit").value =
+            button.dataset.limit || button.dataset.amount;
+        document.getElementById("budgetStart").value = button.dataset.start;
+        document.getElementById("budgetEnd").value = button.dataset.end;
+
+        document.getElementById("budgetPaymentMethod").value =
+            button.dataset.paymentMethod || "";
+
+        document.getElementById("budgetModalTitle").textContent = "Edit Budget";
+        budgetModal.show();
+    }
+
+    document.getElementById("budgetForm").addEventListener("submit", event => {
         const amount = Number(
             document.getElementById("budgetAmount").value
         );
-
         const limit = Number(
             document.getElementById("spendingLimit").value
         );
-
         const start = document.getElementById("budgetStart").value;
         const end = document.getElementById("budgetEnd").value;
 
-        if (budgetCategory.value === "Others"
-            && !budgetCategoryOther.value.trim()) {
+        if (
+            budgetCategory.value.toLowerCase() === "others" &&
+            !budgetCategoryOther.value.trim()
+        ) {
             event.preventDefault();
             alert("Please enter your custom budget category.");
             budgetCategoryOther.focus();
@@ -1608,124 +5707,102 @@ document.getElementById("budgetForm").addEventListener(
             event.preventDefault();
             alert("The end date cannot be before the start date.");
         }
-    }
-);
-
-    
-function openGoalAdd() {
-    document.getElementById("goalForm").reset();
-
-    document.getElementById("goalAction").value = "add_goal";
-    document.getElementById("goalId").value = "";
-    document.getElementById("goalModalTitle").textContent =
-        "Add Savings Goal";
-
-    document.getElementById("goalCurrent").value = "0";
-    document.getElementById("goalDate").value = "{{ today|escapejs }}";
-
-    goalCategory.value = "";
-    goalNameOther.value = "";
-    toggleOtherGoal();
-
-    goalModal.show();
-}
-
-function openGoalEdit(button) {
-    document.getElementById("goalAction").value = "edit_goal";
-    document.getElementById("goalId").value = button.dataset.id;
-
-    setGoalCategory(button.dataset.name);
-
-    document.getElementById("goalTarget").value = button.dataset.target;
-    document.getElementById("goalCurrent").value = button.dataset.current;
-    document.getElementById("goalDate").value = button.dataset.date;
-
-    document.getElementById("goalModalTitle").textContent =
-        "Edit Savings Goal";
-
-    goalModal.show();
-}
-
-    // Highlight the current navigation item.
-    document.querySelectorAll(".side-link").forEach(function(link) {
-        link.addEventListener("click", function() {
-            document.querySelectorAll(".side-link").forEach(function(item) {
-                item.classList.remove("active");
-            });
-
-            this.classList.add("active");
-        });
     });
 
-    // Basic client-side date validation.
-    document.getElementById("budgetForm").addEventListener("submit", function(event) {
-        const start = document.getElementById("budgetStart").value;
-        const end = document.getElementById("budgetEnd").value;
+    /* SAVINGS GOAL FUNCTIONS */
+    const goalCategory = document.getElementById("goalCategory");
+    const otherGoalContainer =
+        document.getElementById("otherGoalContainer");
+    const goalNameOther = document.getElementById("goalNameOther");
 
-        if (start && end && end < start) {
-            event.preventDefault();
-            alert("Budget end date cannot be before its start date.");
+    function toggleOtherGoal() {
+        const isOther =
+            goalCategory.value.toLowerCase() === "others";
+
+        otherGoalContainer.classList.toggle("d-none", !isOther);
+        goalNameOther.required = isOther;
+
+        if (!isOther) {
+            goalNameOther.value = "";
         }
-    });
-document.getElementById("goalForm").addEventListener("submit", function(event) {
-    if (goalCategory.value === "Others" && !goalNameOther.value.trim()) {
-        event.preventDefault();
-        alert("Please enter your custom savings goal.");
-        goalNameOther.focus();
     }
-});
-    // The server also validates amounts and savings targets.
-    document.getElementById("goalForm").addEventListener("submit", function(event) {
-        const target = Number(document.getElementById("goalTarget").value);
-        const current = Number(document.getElementById("goalCurrent").value);
+
+    goalCategory.addEventListener("change", toggleOtherGoal);
+
+    function setGoalCategory(savedName) {
+        const found = Array.from(goalCategory.options).some(option =>
+            option.value === savedName &&
+            option.value !== "" &&
+            option.value.toLowerCase() !== "others"
+        );
+
+        if (found) {
+            goalCategory.value = savedName;
+            goalNameOther.value = "";
+        } else {
+            goalCategory.value = "Others";
+            goalNameOther.value = savedName;
+        }
+
+        toggleOtherGoal();
+    }
+
+    function openGoalAdd() {
+        document.getElementById("goalForm").reset();
+        document.getElementById("goalAction").value = "add_goal";
+        document.getElementById("goalId").value = "";
+        document.getElementById("goalModalTitle").textContent =
+            "Add Savings Goal";
+        document.getElementById("goalCurrent").value = "0";
+        document.getElementById("goalDate").value = "{{ today|escapejs }}";
+        goalCategory.value = "";
+        goalNameOther.value = "";
+        toggleOtherGoal();
+        goalModal.show();
+    }
+
+    function openGoalEdit(button) {
+        document.getElementById("goalAction").value = "edit_goal";
+        document.getElementById("goalId").value = button.dataset.id;
+
+        setGoalCategory(button.dataset.name);
+
+        document.getElementById("goalTarget").value =
+            button.dataset.target;
+        document.getElementById("goalCurrent").value =
+            button.dataset.current;
+        document.getElementById("goalDate").value =
+            button.dataset.date;
+
+        document.getElementById("goalModalTitle").textContent =
+            "Edit Savings Goal";
+
+        goalModal.show();
+    }
+
+    document.getElementById("goalForm").addEventListener("submit", event => {
+        const target = Number(
+            document.getElementById("goalTarget").value
+        );
+        const current = Number(
+            document.getElementById("goalCurrent").value
+        );
+
+        if (
+            goalCategory.value.toLowerCase() === "others" &&
+            !goalNameOther.value.trim()
+        ) {
+            event.preventDefault();
+            alert("Please enter your custom savings goal.");
+            goalNameOther.focus();
+            return;
+        }
 
         if (current > target) {
             event.preventDefault();
             alert("Current savings cannot exceed the target amount.");
         }
     });
-</script>
-<script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll(".side-link");
-    const sections = document.querySelectorAll(".page-section");
-
-    function showPage(pageName) {
-        const sectionId = pageName + "-section";
-        const target = document.getElementById(sectionId);
-
-        if (!target) {
-            pageName = "dashboard";
-        }
-
-        sections.forEach(function (section) {
-            section.classList.toggle(
-                "active",
-                section.id === pageName + "-section"
-            );
-        });
-
-        links.forEach(function (link) {
-            const linkPage = link.getAttribute("href").substring(1);
-            link.classList.toggle("active", linkPage === pageName);
-        });
-    }
-
-    links.forEach(function (link) {
-        link.addEventListener("click", function (event) {
-            event.preventDefault();
-
-            const pageName = this.getAttribute("href").substring(1);
-            showPage(pageName);
-
-            history.replaceState(null, "", "#" + pageName);
-        });
-    });
-
-    const initialPage = window.location.hash.substring(1);
-    showPage(initialPage || "dashboard");
-});
 </script>
 
 </body>

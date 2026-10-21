@@ -14,11 +14,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+from django.contrib.auth import views as auth_views
+from django.urls import path, reverse_lazy
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include("MyApp.urls")),
+    path("admin/", admin.site.urls),
+    path("", include("MyApp.urls")),
+    path(
+    "password-change/",
+    auth_views.PasswordChangeView.as_view(
+        template_name="InvApp/password_change.html",
+        success_url=reverse_lazy("password_change_done"),
+    ),
+    name="password_change",
+),
+
+path(
+    "password-change/done/",
+    auth_views.PasswordChangeDoneView.as_view(
+        template_name="InvApp/password_change_done.html",
+    ),
+    name="password_change_done",
+),
 ]
